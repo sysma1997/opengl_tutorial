@@ -62,6 +62,7 @@ file(GLOB libs_src
     "libs/*/*.h" "libs/*/*.hpp" "libs/*/*.cpp"
     "src/*.h" "src/*.cpp"
     "src/*/*.h" "src/*/*.cpp"
+    "src/*/*/*.h" "src/*/*/*.cpp"
 )
 
 file(GLOB shaders 
