@@ -59,6 +59,9 @@ int main(void)
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
     glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+
     GLuint VertexArrayID;
     glGenVertexArrays(1, &VertexArrayID);
     glBindVertexArray(VertexArrayID);
@@ -103,11 +106,6 @@ int main(void)
         -1.0f, 1.0f, 1.0f,
         1.0f, -1.0f, 1.0f};
 
-    GLuint vertexbuffer;
-    glGenBuffers(1, &vertexbuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
-
     // One color for each vertex. They were generated randomly.
     static const GLfloat g_color_buffer_data[] = {
         0.583f, 0.771f, 0.014f,
@@ -147,6 +145,11 @@ int main(void)
         0.820f, 0.883f, 0.371f,
         0.982f, 0.099f, 0.879f};
 
+    GLuint vertexbuffer;
+    glGenBuffers(1, &vertexbuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+
     GLuint colorbuffer;
     glGenBuffers(1, &colorbuffer);
     glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
@@ -168,8 +171,6 @@ int main(void)
 
         glfwGetFramebufferSize(window, &width, &height);
         glViewport(0, 0, width, height);
-        glEnable(GL_DEPTH_TEST);
-        glDepthFunc(GL_LESS);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glUseProgram(programID);
 
