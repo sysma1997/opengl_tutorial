@@ -14,8 +14,6 @@
 
 using namespace glm;
 
-#include "./src/testMath.h"
-
 int main(void)
 {
     if (!glfwInit())
