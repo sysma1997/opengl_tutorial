@@ -59,6 +59,7 @@ ENDIF()
 # FILE GLOB selecciona todos los archivos que cumplan la característica y los almacena en libs_src
 # GLOB no es recursivo. Si lo necesitas, usa GLOB_RECURSE
 file(GLOB libs_src 
+    "libs/*.h" 
     "libs/*/*.h" "libs/*/*.hpp" "libs/*/*.cpp"
     "src/*.h" "src/*.cpp"
     "src/*/*.h" "src/*/*.cpp"
@@ -66,9 +67,13 @@ file(GLOB libs_src
 )
 
 file(GLOB shaders 
-    "shaders/*.vert" "shaders/*.frag"
+    "shaders/*"
 )
 file(COPY ${shaders} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/shaders)
+
+file(GLOB assets
+    "assets/*")
+file(COPY ${assets} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/assets)
 # ----- FIN FILES ----- #
 
 # Se creará un ejecutable llamado opts en Linux o opts.exe en Windows
