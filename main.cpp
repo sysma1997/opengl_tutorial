@@ -12,6 +12,7 @@
 #include "./src/imguiScreens/menuBar.h"
 #include "./src/imguiScreens/moveCamera/moveCamera.h"
 #include "./src/LoadTextures.h"
+#include "./src/Controls.h"
 
 using namespace glm;
 
@@ -66,7 +67,7 @@ int main(void)
     glBindVertexArray(VertexArrayID);
 
     GLuint programID = shaderCompiler("./shaders/test.vert", "./shaders/test.frag");
-    GLuint texture = LoadTextureBMP("./assets/textures/uvtemplate.bmp");
+    GLuint texture = LoadTextureDDS("./assets/textures/uvtemplate.dds");
     GLuint textureID = glGetUniformLocation(programID, "myTextureSampler");
 
     static const GLfloat g_vertex_buffer_data[] = {
@@ -227,7 +228,7 @@ int main(void)
         ImGui::Render();
         /* END IMGUI */
 
-        glm::mat4 projection;
+        /* glm::mat4 projection;
         if (GMoveCamera::projection_type_index == 0)
             projection = glm::perspective(glm::radians(GMoveCamera::projection_field_of_view),
                                           GMoveCamera::PROJECTION_RATIOS_VALUES[GMoveCamera::projection_ratio_index],
@@ -240,7 +241,12 @@ int main(void)
             GMoveCamera::view_center,
             GMoveCamera::view_up);
 
-        glm::mat4 model(1.0f);
+        glm::mat4 model(1.0f); */
+
+        computeMatricesFromInputs(window, width, height);
+        mat4 projection = getProjectionMatrix();
+        mat4 view = getViewMatrix();
+        mat4 model(1.0f);
         // Our ModelViewProjection: multiplication of our 3 matrices
         glm::mat4 mvp = projection * view * model;
 
