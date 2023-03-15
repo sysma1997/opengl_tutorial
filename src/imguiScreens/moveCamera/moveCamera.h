@@ -27,6 +27,8 @@ public:
     static glm::vec3 view_center;
     static glm::vec3 view_up;
     /* END VIEW VARIABLES */
+
+    static bool pause;
 };
 
 void imGuiScreenMoveCamera(bool *open);

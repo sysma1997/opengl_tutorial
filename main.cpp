@@ -16,6 +16,12 @@
 
 using namespace glm;
 
+void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods)
+{
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+        GMoveCamera::pause = !GMoveCamera::pause;
+}
+
 int main(void)
 {
     if (!glfwInit())
@@ -61,6 +67,7 @@ int main(void)
 
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
+    glEnable(GL_CULL_FACE);
 
     GLuint VertexArrayID;
     glGenVertexArrays(1, &VertexArrayID);
@@ -209,6 +216,8 @@ int main(void)
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init();
 
+    glfwSetKeyCallback(window, key_callback);
+
     while (glfwWindowShouldClose(window) == 0)
     {
         glfwPollEvents();
@@ -223,7 +232,8 @@ int main(void)
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        imGuiMenuBar();
+        if (GMoveCamera::pause)
+            imGuiMenuBar();
 
         ImGui::Render();
         /* END IMGUI */

@@ -32,6 +32,8 @@ glm::vec3 GMoveCamera::view_center(0.0f, 0.0f, 0.0f);
 glm::vec3 GMoveCamera::view_up(0.0f, 1.0f, 0.0f);
 /* END VIEW VARIABLES */
 
+bool GMoveCamera::pause = false;
+
 void imGuiScreenMoveCamera(bool *open)
 {
     ImGui::Begin("Camera", open);

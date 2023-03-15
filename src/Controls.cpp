@@ -5,6 +5,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "./imguiScreens/moveCamera/moveCamera.h"
+
 using namespace glm;
 
 mat4 viewMatrix;
@@ -32,9 +34,13 @@ void computeMatricesFromInputs(GLFWwindow *window, int width, int height)
     double currentTime = glfwGetTime();
     float deltaTime = float(currentTime - lastTime);
 
-    double xpos, ypos;
-    glfwGetCursorPos(window, &xpos, &ypos);
-    glfwSetCursorPos(window, width / 2, height / 2);
+    double xpos = width / 2;
+    double ypos = height / 2;
+    if (!GMoveCamera::pause)
+    {
+        glfwGetCursorPos(window, &xpos, &ypos);
+        glfwSetCursorPos(window, width / 2, height / 2);
+    }
 
     horizontalAngle += mouseSpeed * float(width / 2 - xpos);
     verticalAngle += mouseSpeed * float(height / 2 - ypos);
