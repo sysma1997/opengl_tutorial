@@ -36,11 +36,8 @@ void computeMatricesFromInputs(GLFWwindow *window, int width, int height)
 
     double xpos = width / 2;
     double ypos = height / 2;
-    if (!GMoveCamera::pause)
-    {
-        glfwGetCursorPos(window, &xpos, &ypos);
-        glfwSetCursorPos(window, width / 2, height / 2);
-    }
+    glfwGetCursorPos(window, &xpos, &ypos);
+    glfwSetCursorPos(window, width / 2, height / 2);
 
     horizontalAngle += mouseSpeed * float(width / 2 - xpos);
     verticalAngle += mouseSpeed * float(height / 2 - ypos);
@@ -53,18 +50,27 @@ void computeMatricesFromInputs(GLFWwindow *window, int width, int height)
                cos(horizontalAngle - 3.14f / 2.0f));
     vec3 up = cross(right, direction);
 
+    float _speed = speed;
+    if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+        _speed *= 2;
+
     if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS ||
         glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        position += direction * deltaTime * speed;
+        position += direction * deltaTime * _speed;
     if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS ||
         glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        position -= direction * deltaTime * speed;
+        position -= direction * deltaTime * _speed;
     if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS ||
         glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        position += right * deltaTime * speed;
+        position += right * deltaTime * _speed;
     if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS ||
         glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        position -= right * deltaTime * speed;
+        position -= right * deltaTime * _speed;
+
+    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+        position += up * deltaTime * _speed;
+    if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
+        position -= up * deltaTime * _speed;
 
     float FoV = initialFoV;
 
