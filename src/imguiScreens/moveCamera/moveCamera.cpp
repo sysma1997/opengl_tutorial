@@ -27,7 +27,7 @@ float GMoveCamera::projection_unit_end = 100.0f;
 /* END PROJECTION VARIABLES */
 
 /* VIEW VARIABLES */
-glm::vec3 GMoveCamera::view_eye(4.0f, 3.0f, 3.0f);
+glm::vec3 GMoveCamera::work_space(4.0f, 3.0f, 3.0f);
 glm::vec3 GMoveCamera::view_center(0.0f, 0.0f, 0.0f);
 glm::vec3 GMoveCamera::view_up(0.0f, 1.0f, 0.0f);
 /* END VIEW VARIABLES */
@@ -97,40 +97,40 @@ void imGuiScreenMoveCamera(bool *open)
     ImGui::Text("VIEW");
     ImGui::NewLine();
 
-    ImGui::Text("Eyes (Work space):");
+    ImGui::Text("Work space (Position):");
     ImGui::Text("X");
     ImGui::SameLine();
-    ImGui::SliderFloat("##eye x", &GMoveCamera::view_eye.x, -30.0f, 30.0f);
+    ImGui::InputFloat("##eye x", &GMoveCamera::work_space.x);
     ImGui::Text("Y");
     ImGui::SameLine();
-    ImGui::SliderFloat("##eye y", &GMoveCamera::view_eye.y, -30.0f, 30.0f);
+    ImGui::InputFloat("##eye y", &GMoveCamera::work_space.y);
     ImGui::Text("Z");
     ImGui::SameLine();
-    ImGui::SliderFloat("##eye z", &GMoveCamera::view_eye.z, -30.0f, 30.0f);
+    ImGui::InputFloat("##eye z", &GMoveCamera::work_space.z);
     ImGui::NewLine();
 
-    ImGui::Text("Center (looks origin):");
+    ImGui::Text("Looks origin (Position + Direction):");
     ImGui::Text("X");
     ImGui::SameLine();
-    ImGui::SliderFloat("##center x", &GMoveCamera::view_center.x, -30.0f, 30.0f);
+    ImGui::InputFloat("##center x", &GMoveCamera::view_center.x);
     ImGui::Text("Y");
     ImGui::SameLine();
-    ImGui::SliderFloat("##center y", &GMoveCamera::view_center.y, -30.0f, 30.0f);
+    ImGui::InputFloat("##center y", &GMoveCamera::view_center.y);
     ImGui::Text("Z");
     ImGui::SameLine();
-    ImGui::SliderFloat("##center z", &GMoveCamera::view_center.z, -30.0f, 30.0f);
+    ImGui::InputFloat("##center z", &GMoveCamera::view_center.z);
     ImGui::NewLine();
 
-    ImGui::Text("Up:");
+    ImGui::Text("Up (Up):");
     ImGui::Text("X");
     ImGui::SameLine();
-    ImGui::SliderFloat("##up x", &GMoveCamera::view_up.x, -30.0f, 30.0f);
+    ImGui::InputFloat("##up x", &GMoveCamera::view_up.x);
     ImGui::Text("Y");
     ImGui::SameLine();
-    ImGui::SliderFloat("##up y", &GMoveCamera::view_up.y, -30.0f, 30.0f);
+    ImGui::InputFloat("##up y", &GMoveCamera::view_up.y);
     ImGui::Text("Z");
     ImGui::SameLine();
-    ImGui::SliderFloat("##up z", &GMoveCamera::view_up.z, -30.0f, 30.0f);
+    ImGui::InputFloat("##up z", &GMoveCamera::view_up.z);
     ImGui::NewLine();
     /* END VIEW */
 

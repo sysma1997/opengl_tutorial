@@ -23,7 +23,7 @@ public:
     /* END PROJECTION VARIABLES */
 
     /* VIEW VARIABLES */
-    static glm::vec3 view_eye;
+    static glm::vec3 work_space;
     static glm::vec3 view_center;
     static glm::vec3 view_up;
     /* END VIEW VARIABLES */

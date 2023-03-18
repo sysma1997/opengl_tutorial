@@ -120,8 +120,7 @@ int main(void)
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        if (GMoveCamera::pause)
-            imGuiMenuBar();
+        imGuiMenuBar();
 
         ImGui::Render();
         /* END IMGUI */
@@ -150,27 +149,11 @@ int main(void)
             0,
             (void *)0);
 
-        /* glm::mat4 projection;
-        if (GMoveCamera::projection_type_index == 0)
-            projection = glm::perspective(glm::radians(GMoveCamera::projection_field_of_view),
-                                          GMoveCamera::PROJECTION_RATIOS_VALUES[GMoveCamera::projection_ratio_index],
-                                          GMoveCamera::projection_unit_init, GMoveCamera::projection_unit_end);
-        else if (GMoveCamera::projection_type_index == 1)
-            projection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 0.0f, 100.0f);
-
-        glm::mat4 view = glm::lookAt(
-            GMoveCamera::view_eye,
-            GMoveCamera::view_center,
-            GMoveCamera::view_up);
-
-        glm::mat4 model(1.0f); */
-
-        if (!GMoveCamera::pause)
-            computeMatricesFromInputs(window, width, height);
+        computeMatricesFromInputs(window, width, height);
         mat4 projection = getProjectionMatrix();
         mat4 view = getViewMatrix();
-        glm::mat4 mvp = projection * view * mat4(1.0f);
         mat4 model(1.0f);
+        glm::mat4 mvp = projection * view * model;
 
         glUniformMatrix4fv(glGetUniformLocation(programID, "projection"), 1, GL_FALSE, &projection[0][0]);
         glUniformMatrix4fv(glGetUniformLocation(programID, "view"), 1, GL_FALSE, &view[0][0]);
