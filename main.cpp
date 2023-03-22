@@ -96,6 +96,11 @@ int main(void)
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, uvbuffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, cubeUvs.size() * sizeof(glm::vec2), &cubeUvs[0], GL_STATIC_DRAW);
 
+    GLuint normalbuffer;
+    glGenBuffers(1, &normalbuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
+    glBufferData(GL_ARRAY_BUFFER, cubeNormals.size() * sizeof(glm::vec3), &cubeNormals[0], GL_STATIC_DRAW);
+
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO &io = ImGui::GetIO();
@@ -149,6 +154,16 @@ int main(void)
             0,
             (void *)0);
 
+        glEnableVertexAttribArray(2);
+        glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
+        glVertexAttribPointer(
+            2,
+            3,
+            GL_FLOAT,
+            GL_FALSE,
+            0,
+            (void *)0);
+
         computeMatricesFromInputs(window, width, height);
         mat4 projection = getProjectionMatrix();
         mat4 view = getViewMatrix();
@@ -159,10 +174,15 @@ int main(void)
         glUniformMatrix4fv(glGetUniformLocation(programID, "view"), 1, GL_FALSE, &view[0][0]);
         glUniformMatrix4fv(glGetUniformLocation(programID, "model"), 1, GL_FALSE, &model[0][0]);
 
+        glm::vec3 lightPos(4, 4, 4);
+        glUniform3f(glGetUniformLocation(programID, "LightPosition_world"),
+                    lightPos.x, lightPos.y, lightPos.z);
+
         glDrawArrays(GL_TRIANGLES, 0, cubeVertices.size());
 
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
+        glDisableVertexAttribArray(2);
 
         /* IMGUI RENDER */
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
