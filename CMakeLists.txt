@@ -1,16 +1,31 @@
 cmake_minimum_required(VERSION 3.8)
 
+project(opengl_learning VERSION 1.0)
+
 # Version c++
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-project(opengl_learning)
 
 # Creamos la variable y le asignamos el valor "src/main.cpp" que es la ubicación de nuestro archivo.
 # Por defecto las variables son listas o arrays
 # Si tenemos dos archivos sería SET(<NOMBRE_VARIABLE> "src/main.cpp" "src/segundo.cpp")
 # Se permite multilínea
 set(opengl_learning_src "./main.cpp")
+
+# ----- OTHER CONFIGS ----- #
+
+set(BUILD_PATH ${CMAKE_SOURCE_DIR}/bin/)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${BUILD_PATH})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${BUILD_PATH})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BUILD_PATH})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${BUILD_PATH})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${BUILD_PATH})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${BUILD_PATH})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${BUILD_PATH})
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${BUILD_PATH})
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${BUILD_PATH})
+
+# ----- END OTHER CONFIGS ----- #
 
 # ----- LIBRERIAS EXTERNAS ----- #
 
@@ -56,24 +71,26 @@ ENDIF()
 
 # ----- FILES ----- #
 
+# that's just quick and dirty folder cleanup, actually CMake would detect what has changed
+# file(REMOVE_RECURSE ${BUILD_PATH})
+# file(MAKE_DIRECTORY  ${BUILD_PATH})
+
 # FILE GLOB selecciona todos los archivos que cumplan la característica y los almacena en libs_src
 # GLOB no es recursivo. Si lo necesitas, usa GLOB_RECURSE
-file(GLOB libs_src 
-    "libs/*.h" 
-    "libs/*/*.h" "libs/*/*.hpp" "libs/*/*.cpp"
+file(GLOB_RECURSE libs_src 
+    "libs/*.h" "libs/*.hpp" "libs/*.cpp"
     "src/*.h" "src/*.cpp"
-    "src/*/*.h" "src/*/*.cpp"
-    "src/*/*/*.h" "src/*/*/*.cpp"
 )
 
 file(GLOB shaders 
     "shaders/*"
 )
-file(COPY ${shaders} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/shaders)
+file(COPY ${shaders} DESTINATION ${BUILD_PATH}/shaders)
 
 file(GLOB assets
     "assets/*")
-file(COPY ${assets} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/assets)
+file(COPY ${assets} DESTINATION ${BUILD_PATH}/assets)
+
 # ----- FIN FILES ----- #
 
 # Se creará un ejecutable llamado opts en Linux o opts.exe en Windows

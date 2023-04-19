@@ -40,7 +40,7 @@ int main(void)
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     int width = 800;
-    int height = 480;
+    int height = 600;
     GLFWwindow *window;
     window = glfwCreateWindow(width, height, "OpenGL Learning", NULL, NULL);
     if (window == NULL)
@@ -65,7 +65,7 @@ int main(void)
     }
 
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
-    glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
@@ -188,8 +188,8 @@ int main(void)
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         /* END IMGUI RENDER */
 
-        glfwSwapBuffers(window);
         glfwPollEvents();
+        glfwSwapBuffers(window);
     }
 
     ImGui_ImplOpenGL3_Shutdown();
