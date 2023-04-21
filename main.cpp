@@ -53,8 +53,8 @@ int main(void)
     }
 
     glfwMakeContextCurrent(window);
-    glfwSwapInterval(1);
-    glewExperimental = true;
+    /* glfwSwapInterval(1);
+    glewExperimental = true; */
 
     if (glewInit() != GLEW_OK)
     {
@@ -65,13 +65,12 @@ int main(void)
     }
 
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
-    glEnable(GL_DEPTH_TEST);
+    /* glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
-    glEnable(GL_CULL_FACE);
+    glEnable(GL_CULL_FACE); */
 
-    GLuint VertexArrayID;
+    /* GLuint VertexArrayID;
     glGenVertexArrays(1, &VertexArrayID);
     glBindVertexArray(VertexArrayID);
 
@@ -99,7 +98,7 @@ int main(void)
     GLuint normalbuffer;
     glGenBuffers(1, &normalbuffer);
     glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
-    glBufferData(GL_ARRAY_BUFFER, cubeNormals.size() * sizeof(glm::vec3), &cubeNormals[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, cubeNormals.size() * sizeof(glm::vec3), &cubeNormals[0], GL_STATIC_DRAW); */
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -113,12 +112,58 @@ int main(void)
 
     glfwSetKeyCallback(window, key_callback);
 
+    GLuint programID = shaderCompiler("./shaders/triangle.vert", "./shaders/triangle.frag");
+
+    float triangle_first[] = {
+        //
+        -0.9f, -0.5f, 0.0f, // left
+        -0.45f, 0.5f, 0.0f, // top
+        0.0f, -0.5f, 0.0f,  // right
+    };
+    float triangle_second[] = {
+        //
+        0.0f, -0.5f, 0.0f, // left
+        0.9f, -0.5f, 0.0f, // right
+        0.45f, 0.5f, 0.0f, // top
+    };
+    /* unsigned int indices[] = {
+        // note that we start from 0!
+        0, 1, 2, // first triangle
+        3, 4, 2  // second triangle
+    }; */
+
+    GLuint VBO[2], VAO[2] /* , EBO */;
+    glGenVertexArrays(2, VAO);
+    glGenBuffers(2, VBO);
+    /* glGenBuffers(1, &EBO); */
+
+    glBindVertexArray(VAO[0]);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(triangle_first), triangle_first, GL_STATIC_DRAW);
+
+    /* glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW); */
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
+    glEnableVertexAttribArray(0);
+
+    glBindVertexArray(VAO[1]);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(triangle_second), triangle_second, GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
+    glEnableVertexAttribArray(0);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
+
     while (glfwWindowShouldClose(window) == 0)
     {
         glfwGetFramebufferSize(window, &width, &height);
         glViewport(0, 0, width, height);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glUseProgram(programID);
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
 
         /* IMGUI */
         ImGui_ImplOpenGL3_NewFrame();
@@ -130,6 +175,7 @@ int main(void)
         ImGui::Render();
         /* END IMGUI */
 
+        /* glUseProgram(programID);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture);
         glUniform1i(textureID, 0);
@@ -182,25 +228,37 @@ int main(void)
 
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
-        glDisableVertexAttribArray(2);
+        glDisableVertexAttribArray(2); */
+
+        glUseProgram(programID);
+        glBindVertexArray(VAO[0]);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+        /* glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0); */
+        glBindVertexArray(VAO[1]);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
 
         /* IMGUI RENDER */
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         /* END IMGUI RENDER */
 
-        glfwPollEvents();
         glfwSwapBuffers(window);
+        glfwPollEvents();
     }
 
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 
-    glDeleteBuffers(1, &vertexbuffer);
+    /* glDeleteBuffers(1, &vertexbuffer);
     glDeleteBuffers(1, &uvbuffer);
     glDeleteProgram(programID);
     glDeleteTextures(1, &texture);
-    glDeleteVertexArrays(1, &VertexArrayID);
+    glDeleteVertexArrays(1, &VertexArrayID); */
+
+    glDeleteVertexArrays(2, VAO);
+    glDeleteBuffers(2, VBO);
+    /* glDeleteBuffers(1, &EBO); */
+    glDeleteProgram(programID);
 
     glfwDestroyWindow(window);
     glfwTerminate();
