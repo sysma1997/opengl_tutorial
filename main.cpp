@@ -9,7 +9,10 @@
 #include "./libs/imgui/imgui_impl_glfw.h"
 #include "./libs/imgui/imgui_impl_opengl3.h"
 
-#include "./src/ShaderCompiler.h"
+#define STB_IMAGE_IMPLEMENTATION
+#include "./libs/stb_image.h"
+
+#include "./src/Shader.h"
 #include "./src/imguiScreens/menuBar.h"
 #include "./src/imguiScreens/moveCamera/moveCamera.h"
 #include "./src/LoadTextures.h"
@@ -112,51 +115,69 @@ int main(void)
 
     glfwSetKeyCallback(window, key_callback);
 
-    GLuint programID = shaderCompiler("./shaders/triangle.vert", "./shaders/triangle.frag");
+    Shader shader("./shaders/triangle.vert", "./shaders/triangle.frag");
 
-    float triangle_first[] = {
-        //
-        -0.9f, -0.5f, 0.0f, // left
-        -0.45f, 0.5f, 0.0f, // top
-        0.0f, -0.5f, 0.0f,  // right
+    GLuint textureId;
+    glGenTextures(1, &textureId);
+    int tWidth, tHeight, tNrChannel;
+    unsigned char *tData = stbi_load("./assets/textures/container.jpg", &tWidth, &tHeight, &tNrChannel, 0);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    float vertices[] = {
+        // positions          // colors           // texture coords
+        0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,   // top right
+        0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,  // bottom right
+        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom left
+        -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f   // top left
     };
-    float triangle_second[] = {
-        //
-        0.0f, -0.5f, 0.0f, // left
-        0.9f, -0.5f, 0.0f, // right
-        0.45f, 0.5f, 0.0f, // top
-    };
-    /* unsigned int indices[] = {
+    unsigned int indices[] = {
         // note that we start from 0!
         0, 1, 2, // first triangle
-        3, 4, 2  // second triangle
-    }; */
+        2, 1, 3  // second triangle
+    };
 
-    GLuint VBO[2], VAO[2] /* , EBO */;
-    glGenVertexArrays(2, VAO);
-    glGenBuffers(2, VBO);
-    /* glGenBuffers(1, &EBO); */
+    GLuint VBO, VAO, EBO;
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
 
-    glBindVertexArray(VAO[0]);
+    glBindVertexArray(VAO);
 
-    glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(triangle_first), triangle_first, GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    /* glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW); */
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
+    glBindTexture(GL_TEXTURE_2D, textureId);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *)0);
     glEnableVertexAttribArray(0);
 
-    glBindVertexArray(VAO[1]);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(triangle_second), triangle_second, GL_STATIC_DRAW);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
-    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *)(6 * sizeof(float)));
+    glEnableVertexAttribArray(2);
+
+    if (!tData)
+    {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, tWidth, tHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, tData);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+    else
+    {
+        std::cout << "Failed to load texture" << std::endl;
+    }
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
+
+    stbi_image_free(tData);
 
     while (glfwWindowShouldClose(window) == 0)
     {
@@ -230,12 +251,11 @@ int main(void)
         glDisableVertexAttribArray(1);
         glDisableVertexAttribArray(2); */
 
-        glUseProgram(programID);
-        glBindVertexArray(VAO[0]);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
-        /* glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0); */
-        glBindVertexArray(VAO[1]);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        shader.use();
+
+        glBindVertexArray(VAO);
+        /* glDrawArrays(GL_TRIANGLES, 0, 3); */
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         /* IMGUI RENDER */
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -255,10 +275,10 @@ int main(void)
     glDeleteTextures(1, &texture);
     glDeleteVertexArrays(1, &VertexArrayID); */
 
-    glDeleteVertexArrays(2, VAO);
-    glDeleteBuffers(2, VBO);
-    /* glDeleteBuffers(1, &EBO); */
-    glDeleteProgram(programID);
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteBuffers(1, &EBO);
+    glDeleteProgram(shader.id);
 
     glfwDestroyWindow(window);
     glfwTerminate();
