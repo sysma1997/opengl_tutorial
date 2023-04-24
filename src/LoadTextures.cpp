@@ -1,16 +1,5 @@
 #include "LoadTextures.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-
-#include <iostream>
-#include <cstring>
-#include <string>
-#include <GL/glew.h>
-
-#define STB_IMAGE_IMPLEMENTATION
-#include "../libs/stb_image.h"
-
 using namespace glm;
 
 /* GLuint LoadTexture(const char *image_path)

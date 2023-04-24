@@ -15,7 +15,7 @@
 #include "./src/Shader.h"
 #include "./src/imguiScreens/menuBar.h"
 #include "./src/imguiScreens/moveCamera/moveCamera.h"
-#include "./src/LoadTextures.h"
+/* #include "./src/LoadTextures.h" */
 #include "./src/Controls.h"
 #include "./src/LoadModels.h"
 
@@ -115,17 +115,9 @@ int main(void)
 
     glfwSetKeyCallback(window, key_callback);
 
+    stbi_set_flip_vertically_on_load(true);
+
     Shader shader("./shaders/triangle.vert", "./shaders/triangle.frag");
-
-    GLuint textureId;
-    glGenTextures(1, &textureId);
-    int tWidth, tHeight, tNrChannel;
-    unsigned char *tData = stbi_load("./assets/textures/container.jpg", &tWidth, &tHeight, &tNrChannel, 0);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     float vertices[] = {
         // positions          // colors           // texture coords
@@ -136,7 +128,7 @@ int main(void)
     };
     unsigned int indices[] = {
         // note that we start from 0!
-        0, 1, 2, // first triangle
+        0, 1, 3, // first triangle
         2, 1, 3  // second triangle
     };
 
@@ -153,8 +145,6 @@ int main(void)
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-    glBindTexture(GL_TEXTURE_2D, textureId);
-
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *)0);
     glEnableVertexAttribArray(0);
 
@@ -164,7 +154,18 @@ int main(void)
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
 
-    if (!tData)
+    GLuint textureId[2];
+    glGenTextures(2, textureId);
+    glBindTexture(GL_TEXTURE_2D, textureId[0]);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    int tWidth, tHeight, tNrChannel;
+    unsigned char *tData = stbi_load("./assets/textures/container.jpg", &tWidth, &tHeight, &tNrChannel, 0);
+    if (tData)
     {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, tWidth, tHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, tData);
         glGenerateMipmap(GL_TEXTURE_2D);
@@ -174,10 +175,32 @@ int main(void)
         std::cout << "Failed to load texture" << std::endl;
     }
 
+    glBindTexture(GL_TEXTURE_2D, textureId[1]);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    tData = stbi_load("./assets/textures/awesomeface.png", &tWidth, &tHeight, &tNrChannel, 0);
+    if (tData)
+    {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, tWidth, tHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, tData);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+    else
+    {
+        std::cout << "Failed to load texture" << std::endl;
+    }
+
+    stbi_image_free(tData);
+
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
-    stbi_image_free(tData);
+    shader.use();
+    shader.setInt("texture1", 0);
+    shader.setInt("texture2", 1);
 
     while (glfwWindowShouldClose(window) == 0)
     {
@@ -253,6 +276,10 @@ int main(void)
 
         shader.use();
 
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, textureId[0]);
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, textureId[1]);
         glBindVertexArray(VAO);
         /* glDrawArrays(GL_TRIANGLES, 0, 3); */
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

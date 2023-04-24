@@ -1,5 +1,8 @@
 #pragma once
 
+#include <iostream>
+#include <string>
+#include <cstring>
 #include <vector>
 #include <GL/glew.h>
 #include <glm/glm.hpp>

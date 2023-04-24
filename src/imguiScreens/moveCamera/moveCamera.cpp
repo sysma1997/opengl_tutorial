@@ -1,12 +1,5 @@
 #include "./moveCamera.h"
 
-#include <string>
-#include <glm/glm.hpp>
-
-#include "../../../libs/imgui/imgui.h"
-#include "../../../libs/imgui/imgui_impl_glfw.h"
-#include "../../../libs/imgui/imgui_impl_opengl3.h"
-
 /* PROJECTION VARIABLES */
 const char *GMoveCamera::PROJECTION_TYPES[2] = {"Matrix", "Ortho"};
 int GMoveCamera::projection_type_index = 0;
