@@ -1,5 +1,7 @@
 #include "./Shader.h"
 
+using namespace glm;
+
 Shader::Shader(const char *vertexPath, const char *fragmentPath)
 {
     GLuint vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
@@ -99,4 +101,13 @@ void Shader::setInt(const std::string &name, GLint value) const
 void Shader::setFloat(const std::string &name, GLfloat value) const
 {
     glUniform1f(glGetUniformLocation(id, name.c_str()), value);
+}
+
+void Shader::setVec3(const std::string &name, vec3 value) const
+{
+    glUniform3fv(glGetUniformLocation(id, name.c_str()), 1, value_ptr(value));
+}
+void Shader::setMat4(const std::string &name, mat4 value) const
+{
+    glUniformMatrix4fv(glGetUniformLocation(id, name.c_str()), 1, GL_FALSE, value_ptr(value));
 }

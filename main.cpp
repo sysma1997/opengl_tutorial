@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "./libs/imgui/imgui.h"
 #include "./libs/imgui/imgui_impl_glfw.h"
@@ -275,6 +276,11 @@ int main(void)
         glDisableVertexAttribArray(2); */
 
         shader.use();
+
+        mat4 trans = mat4(1.0f);
+        trans = translate(trans, vec3(0.5f, -0.5f, 0.0f));
+        trans = rotate(trans, (float)glfwGetTime(), vec3(0.0f, 0.0f, 1.0f));
+        shader.setMat4("transform", trans);
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, textureId[0]);
