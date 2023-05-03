@@ -20,12 +20,14 @@ float GMoveCamera::projection_unit_end = 100.0f;
 /* END PROJECTION VARIABLES */
 
 /* VIEW VARIABLES */
-glm::vec3 GMoveCamera::work_space(4.0f, 3.0f, 3.0f);
-glm::vec3 GMoveCamera::view_center(0.0f, 0.0f, 0.0f);
-glm::vec3 GMoveCamera::view_up(0.0f, 1.0f, 0.0f);
+glm::vec3 GMoveCamera::camera_pos(0.0f, 0.0f, 3.0f);
+glm::vec3 GMoveCamera::camera_front(0.0f, 0.0f, -1.0f);
+glm::vec3 GMoveCamera::camera_up(0.0f, 1.0f, 0.0f);
 /* END VIEW VARIABLES */
 
 bool GMoveCamera::pause = false;
+
+float GMoveCamera::view_angle_rotate_y = 0.0f;
 
 void imGuiScreenMoveCamera(bool *open)
 {
@@ -93,39 +95,50 @@ void imGuiScreenMoveCamera(bool *open)
     ImGui::Text("Work space (Position):");
     ImGui::Text("X");
     ImGui::SameLine();
-    ImGui::InputFloat("##eye x", &GMoveCamera::work_space.x);
+    ImGui::InputFloat("##eye x", &GMoveCamera::camera_pos.x);
     ImGui::Text("Y");
     ImGui::SameLine();
-    ImGui::InputFloat("##eye y", &GMoveCamera::work_space.y);
+    ImGui::InputFloat("##eye y", &GMoveCamera::camera_pos.y);
     ImGui::Text("Z");
     ImGui::SameLine();
-    ImGui::InputFloat("##eye z", &GMoveCamera::work_space.z);
+    ImGui::InputFloat("##eye z", &GMoveCamera::camera_pos.z);
     ImGui::NewLine();
 
     ImGui::Text("Looks origin (Position + Direction):");
     ImGui::Text("X");
     ImGui::SameLine();
-    ImGui::InputFloat("##center x", &GMoveCamera::view_center.x);
+    ImGui::InputFloat("##center x", &GMoveCamera::camera_front.x);
     ImGui::Text("Y");
     ImGui::SameLine();
-    ImGui::InputFloat("##center y", &GMoveCamera::view_center.y);
+    ImGui::InputFloat("##center y", &GMoveCamera::camera_front.y);
     ImGui::Text("Z");
     ImGui::SameLine();
-    ImGui::InputFloat("##center z", &GMoveCamera::view_center.z);
+    ImGui::InputFloat("##center z", &GMoveCamera::camera_front.z);
     ImGui::NewLine();
 
     ImGui::Text("Up (Up):");
     ImGui::Text("X");
     ImGui::SameLine();
-    ImGui::InputFloat("##up x", &GMoveCamera::view_up.x);
+    ImGui::InputFloat("##up x", &GMoveCamera::camera_up.x);
     ImGui::Text("Y");
     ImGui::SameLine();
-    ImGui::InputFloat("##up y", &GMoveCamera::view_up.y);
+    ImGui::InputFloat("##up y", &GMoveCamera::camera_up.y);
     ImGui::Text("Z");
     ImGui::SameLine();
-    ImGui::InputFloat("##up z", &GMoveCamera::view_up.z);
+    ImGui::InputFloat("##up z", &GMoveCamera::camera_up.z);
     ImGui::NewLine();
     /* END VIEW */
+
+    /* MOVE VIEW CAMERA IN Y */
+    ImGui::Text("MOVE VIEW CAMERA IN Y");
+    ImGui::NewLine();
+
+    ImGui::Text("Y");
+    ImGui::SameLine();
+    ImGui::InputFloat("##y", &GMoveCamera::view_angle_rotate_y);
+    ImGui::NewLine();
+    ImGui::SliderFloat("##y2", &GMoveCamera::view_angle_rotate_y, -25.0f, 25.0f);
+    /* END MOVE VIEW CAMERA IN Y */
 
     ImGui::End();
 }

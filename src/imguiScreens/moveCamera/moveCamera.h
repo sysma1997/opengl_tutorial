@@ -28,12 +28,14 @@ public:
     /* END PROJECTION VARIABLES */
 
     /* VIEW VARIABLES */
-    static glm::vec3 work_space;
-    static glm::vec3 view_center;
-    static glm::vec3 view_up;
+    static glm::vec3 camera_pos;
+    static glm::vec3 camera_front;
+    static glm::vec3 camera_up;
     /* END VIEW VARIABLES */
 
     static bool pause;
+
+    static float view_angle_rotate_y;
 };
 
 void imGuiScreenMoveCamera(bool *open);
