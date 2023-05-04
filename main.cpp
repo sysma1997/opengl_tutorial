@@ -1,10 +1,10 @@
 #define STB_IMAGE_IMPLEMENTATION
 
-#include "./src/test/triangle/Triangle.h"
+#include "./src/test/cube/Cube.h"
 
 int main(void)
 {
-    triangle();
+    cube();
 
     return 0;
 }

@@ -50,6 +50,8 @@ void Engine::init(const char *title)
     }
     glfwMakeContextCurrent(window);
 
+    glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+
     if (glewInit() != GLEW_OK)
     {
         std::cout << "Error to init GLEW." << std::endl;

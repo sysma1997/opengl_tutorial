@@ -10,6 +10,8 @@
 
 #include "./shader/Shader.h"
 
+#include "./camera/Camera.h"
+
 class Engine
 {
 private:
