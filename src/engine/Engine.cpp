@@ -59,6 +59,8 @@ void Engine::init(const char *title)
         return;
     }
 
+    glEnable(GL_DEPTH_TEST);
+
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     /* ImGuiIO &io = ImGui::GetIO();
@@ -70,7 +72,6 @@ void Engine::init(const char *title)
     ImGui_ImplOpenGL3_Init();
 
     stbi_set_flip_vertically_on_load(true);
-    glEnable(GL_DEPTH_TEST);
 }
 bool Engine::isClose()
 {
@@ -103,4 +104,9 @@ void Engine::terminate()
 
     glfwDestroyWindow(window);
     glfwTerminate();
+}
+
+void Engine::setKeyCallback(GLFWkeyfun callback)
+{
+    glfwSetKeyCallback(window, callback);
 }

@@ -1,10 +1,10 @@
 #define STB_IMAGE_IMPLEMENTATION
 
-#include "./src/test/cube/Cube.h"
+#include "./src/test/lighting/colors/Colors.h"
 
 int main(void)
 {
-    cube();
+    colors();
 
     return 0;
 }

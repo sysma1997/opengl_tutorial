@@ -8,7 +8,6 @@ class Camera
 {
 private:
     glm::mat4 viewMatrix;
-    bool isPause;
 
     glm::vec3 position;
     glm::vec3 front;
