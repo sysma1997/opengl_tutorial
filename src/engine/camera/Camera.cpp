@@ -38,9 +38,9 @@ mat4 Camera::getViewMatrix(GLFWwindow *window, int width, int height)
     verticalAngle += mouseSpeed * float(height / 2 - ypos);
 
     vec3 mouseDirection;
-    mouseDirection.x = cos(radians(verticalAngle)) * cos(radians(horizontalAngle));
+    mouseDirection.x = sinf(radians(horizontalAngle)) * cos(radians(verticalAngle));
     mouseDirection.y = sin(radians(verticalAngle));
-    mouseDirection.z = cos(radians(verticalAngle)) * sin(radians(horizontalAngle));
+    mouseDirection.z = cos(radians(horizontalAngle)) * cos(radians(verticalAngle));
     front = normalize(mouseDirection);
 
     if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
