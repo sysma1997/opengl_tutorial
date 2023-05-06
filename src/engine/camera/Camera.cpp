@@ -6,8 +6,8 @@ using namespace glm;
 
 Camera::Camera()
 {
-    position = vec3(0.0f, 0.0f, -3.0f);
-    front = vec3(0.0f, 0.0f, -1.0f);
+    position = vec3(0.0f, 0.0f, 3.0f);
+    front = vec3(0.0f, 0.0f, 0.0f);
     up = vec3(0.0f, 1.0f, 0.0f);
 
     horizontalAngle = 0.0f;
@@ -38,25 +38,21 @@ mat4 Camera::getViewMatrix(GLFWwindow *window, int width, int height)
     verticalAngle += mouseSpeed * float(height / 2 - ypos);
 
     vec3 mouseDirection;
-    mouseDirection.x = sin(radians(horizontalAngle)) * cos(radians(verticalAngle));
+    mouseDirection.x = cos(radians(verticalAngle)) * cos(radians(horizontalAngle));
     mouseDirection.y = sin(radians(verticalAngle));
-    mouseDirection.z = cos(radians(horizontalAngle)) * cos(radians(verticalAngle));
+    mouseDirection.z = cos(radians(verticalAngle)) * sin(radians(horizontalAngle));
     front = normalize(mouseDirection);
 
     if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
         _speed *= 2;
 
-    if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS ||
-        glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
         position += front * deltaTime * _speed;
-    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS ||
-        glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
         position -= front * deltaTime * _speed;
-    if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS ||
-        glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         position += normalize(cross(front, up)) * deltaTime * _speed;
-    if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS ||
-        glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
         position -= normalize(cross(front, up)) * deltaTime * _speed;
 
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)

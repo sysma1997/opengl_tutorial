@@ -13,11 +13,13 @@ void colorKeyCallback(GLFWwindow *window, int key, int scancode, int action, int
 void colors()
 {
     Engine engine{};
+    UI ui{};
     Camera camera{};
 
     engine.init("Colors");
 
     engine.setKeyCallback(colorKeyCallback);
+    ui.init(engine.getWindow());
 
     Shader shader{"./shaders/lighting/colors/colors.vert", "./shaders/lighting/colors/colors.frag"};
     Shader lightShader{"./shaders/lighting/colors/colors.vert", "./shaders/lighting/colors/colorLight.frag"};
@@ -159,7 +161,7 @@ void colors()
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
-    vec3 lightPos(1.2f, 1.0f, 2.0f);
+    vec3 lightPos(1.2f, 1.0f, -2.0f);
 
     float cube_modal[3] = {0.0f, 0.0f, 0.0f};
 
@@ -170,36 +172,17 @@ void colors()
     {
         engine.newFrame();
 
-        // ImGui::SetNextWindowSize(ImVec2(300.0f, 80.0f));
-        ImGui::Begin("Cube pos");
-        ImGui::Text("Position: (X | Y | Z)");
-        ImGui::InputFloat3("##cube_pos", cube_modal);
-        ImGui::End();
-
-        // ImGui::SetNextWindowSize(ImVec2(300.0f, 150.0f));
-        ImGui::Begin("Camera");
-        ImGui::Text("Position:");
-        ImGui::InputFloat3("##camera_pos", camera_pos);
-        ImGui::NewLine();
-        ImGui::Text("Rotation: (X | Y)");
-        ImGui::InputFloat2("##camera_rotate", camera_rotate);
-        ImGui::End();
-
         mat4 projection = perspective(radians(45.0f), (float)engine.getWidth() / (float)engine.getHeight(),
                                       0.1f, 100.0f);
-        glMatrixMode(GL_PROJECTION);
-        glLoadMatrixf(value_ptr(projection));
 
         mat4 view;
-        /* if (!color_pause)
-            view = camera.getViewMatrix(engine.getWindow(), engine.getWidth(), engine.getHeight()); */
+        if (!color_pause)
+            view = camera.getViewMatrix(engine.getWindow(), engine.getWidth(), engine.getHeight());
 
-        vec3 eye = vec3(camera_pos[0], camera_pos[1], camera_pos[2]);
+        /* vec3 eye = vec3(camera_pos[0], camera_pos[1], camera_pos[2]);
         vec3 lookat = vec3(0.0f, 0.0f, 0.0f);
         vec3 up = vec3(0.0f, 1.0f, 0.0f);
-        view = lookAt(eye, lookat, up);
-        glMatrixMode(GL_MODELVIEW);
-        glLoadMatrixf(value_ptr(view));
+        view = lookAt(eye, lookat, up); */
 
         mat4 model;
 
@@ -230,6 +213,24 @@ void colors()
         glBindVertexArray(lightVAO);
         glDrawArrays(GL_TRIANGLES, 0, 36);
 
+        ui.newFrame();
+
+        // ImGui::SetNextWindowSize(ImVec2(300.0f, 80.0f));
+        ImGui::Begin("Cube pos");
+        ImGui::Text("Position: (X | Y | Z)");
+        ImGui::InputFloat3("##cube_pos", cube_modal);
+        ImGui::End();
+
+        // ImGui::SetNextWindowSize(ImVec2(300.0f, 150.0f));
+        ImGui::Begin("Camera");
+        ImGui::Text("Position:");
+        ImGui::InputFloat3("##camera_pos", camera_pos);
+        ImGui::NewLine();
+        ImGui::Text("Rotation: (X | Y)");
+        ImGui::InputFloat2("##camera_rotate", camera_rotate);
+        ImGui::End();
+
+        ui.renderFrame();
         engine.renderFrame();
     }
 
@@ -239,5 +240,6 @@ void colors()
     glDeleteProgram(shader.id);
     glDeleteProgram(lightShader.id);
 
+    ui.terminate();
     engine.terminate();
 }

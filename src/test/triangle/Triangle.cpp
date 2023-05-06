@@ -4,8 +4,11 @@ using namespace glm;
 
 void triangle()
 {
-    Engine engine = Engine();
+    Engine engine{};
+    UI ui{};
+
     engine.init("Triangle");
+    ui.init(engine.getWindow());
 
     float vertices[] = {
         0.5f, -0.5f, 0.0f,  // right down
@@ -41,6 +44,11 @@ void triangle()
     {
         engine.newFrame();
 
+        glBindVertexArray(VAO);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+
+        ui.newFrame();
+
         if (imGuiMinWinSize[0] < 250.0f)
             imGuiMinWinSize[0] = 250.0f;
         if (imGuiMinWinSize[1] < 80.0f)
@@ -57,11 +65,10 @@ void triangle()
         shader.use();
         shader.setVec3("color", vec3(color[0], color[1], color[2]));
 
-        glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
-
+        ui.renderFrame();
         engine.renderFrame();
     }
 
+    ui.terminate();
     engine.terminate();
 }

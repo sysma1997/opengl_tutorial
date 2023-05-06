@@ -5,11 +5,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "../../libs/imgui/imgui.h"
-#include "../../libs/imgui/imgui_impl_glfw.h"
-#include "../../libs/imgui/imgui_impl_opengl3.h"
 #include "../../libs/stb_image.h"
 
+#include "./ui/ui.h"
 #include "./shader/Shader.h"
 
 #include "./camera/Camera.h"
