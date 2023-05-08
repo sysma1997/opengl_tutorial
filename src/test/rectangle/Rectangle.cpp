@@ -4,6 +4,7 @@ void rectangle()
 {
     Engine engine = Engine();
     engine.init("Rectangle");
+    Texture::Init();
 
     Shader shader("./shaders/rectangle/rectangle.vert", "./shaders/rectangle/rectangle.frag");
 
@@ -50,25 +51,25 @@ void rectangle()
     glEnableVertexAttribArray(1);
 
     Texture texture1{"./assets/textures/container.jpg"};
-    /* GLuint texture1 = Texture::loadTexture("./assets/textures/container.jpg"); */
-    /* GLuint texture2 = loadTexture("./assets/textures/awesomeface.png", true); */
+    /* Texture texture2{"./assets/textures/awesomeface.png", true}; */
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
-    /* shader.use(); */
-    /* shader.setInt("texture1", 0); */
+    shader.use();
+    shader.setInt("texture1", 0);
     /* shader.setInt("texture2", 1); */
 
     while (engine.isClose())
     {
         engine.newFrame();
 
-        glBindTexture(GL_TEXTURE_2D, texture1.getId());
-
         shader.use();
         glBindVertexArray(VAO);
-
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, texture1.getId());
+        /* glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, texture2.getId()); */
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         engine.renderFrame();

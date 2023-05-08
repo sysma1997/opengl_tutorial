@@ -61,7 +61,6 @@ void Engine::init(const char *title)
         return;
     }
 
-    Texture::Init();
     glEnable(GL_DEPTH_TEST);
 }
 bool Engine::isClose()

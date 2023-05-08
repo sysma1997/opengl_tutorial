@@ -13,8 +13,8 @@ Texture::Texture(const char *path, bool rgba)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    int width, height, nrChannel;
-    unsigned char *data = stbi_load(path, &width, &height, &nrChannel, 0);
+    int width, height, nrChannels;
+    unsigned char *data = stbi_load(path, &width, &height, &nrChannels, 0);
     if (!data)
     {
         std::cout << "Failed to load texture: " << path << std::endl;
