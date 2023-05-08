@@ -1,5 +1,3 @@
-// #define STB_IMAGE_IMPLEMENTATION
-
 #include <iostream>
 #include <vector>
 #include <GL/glew.h>
@@ -12,6 +10,7 @@
 #include "./libs/imgui/imgui_impl_glfw.h"
 #include "./libs/imgui/imgui_impl_opengl3.h"
 
+#define STB_IMAGE_IMPLEMENTATION
 #include "./libs/stb_image.h"
 
 #include "./src/engine/shader/Shader.h"

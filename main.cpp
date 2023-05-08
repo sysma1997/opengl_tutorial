@@ -1,10 +1,8 @@
-#define STB_IMAGE_IMPLEMENTATION
-
-#include "./src/test/triangle/Triangle.h"
+#include "./src/test/rectangle/Rectangle.h"
 
 int main(void)
 {
-    triangle();
+    rectangle();
 
     return 0;
 }

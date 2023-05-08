@@ -2,4 +2,4 @@
 
 #include "../../engine/Engine.h"
 
-void triangle();
+void rectangle();

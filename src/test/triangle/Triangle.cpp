@@ -63,5 +63,9 @@ void triangle()
         engine.renderFrame();
     }
 
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteProgram(shader.id);
+
     engine.terminate();
 }

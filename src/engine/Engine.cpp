@@ -67,7 +67,7 @@ void Engine::init(const char *title)
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init();
 
-    stbi_set_flip_vertically_on_load(true);
+    Texture::init();
     glEnable(GL_DEPTH_TEST);
 }
 bool Engine::isClose()
@@ -78,7 +78,7 @@ void Engine::newFrame()
 {
     glfwGetFramebufferSize(window, &width, &height);
     glViewport(0, 0, width, height);
-    // glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    /* glClearColor(0.2f, 0.3f, 0.3f, 1.0f); */
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     ImGui_ImplOpenGL3_NewFrame();
