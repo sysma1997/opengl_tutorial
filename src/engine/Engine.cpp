@@ -49,6 +49,10 @@ void Engine::init(const char *title)
         return;
     }
     glfwMakeContextCurrent(window);
+    glfwSwapInterval(1);
+    glewExperimental = true;
+
+    glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
     if (glewInit() != GLEW_OK)
     {
@@ -57,17 +61,7 @@ void Engine::init(const char *title)
         return;
     }
 
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    /* ImGuiIO &io = ImGui::GetIO();
-    (void)io; */
-
-    ImGui::StyleColorsDark();
-
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
-    ImGui_ImplOpenGL3_Init();
-
-    Texture::init();
+    Texture::Init();
     glEnable(GL_DEPTH_TEST);
 }
 bool Engine::isClose()
@@ -80,25 +74,19 @@ void Engine::newFrame()
     glViewport(0, 0, width, height);
     /* glClearColor(0.2f, 0.3f, 0.3f, 1.0f); */
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    ImGui_ImplOpenGL3_NewFrame();
-    ImGui_ImplGlfw_NewFrame();
-    ImGui::NewFrame();
 }
 void Engine::renderFrame()
 {
-    ImGui::Render();
-    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
     glfwSwapBuffers(window);
     glfwPollEvents();
 }
 void Engine::terminate()
 {
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
-
     glfwDestroyWindow(window);
     glfwTerminate();
+}
+
+void Engine::setKeyCallback(GLFWkeyfun callback)
+{
+    glfwSetKeyCallback(window, callback);
 }

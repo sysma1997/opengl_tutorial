@@ -4,8 +4,16 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
-namespace Texture
+class Texture
 {
-    void init();
-    GLuint loadTexture(const char *path, bool rgba = false);
+private:
+    GLuint id;
+
+public:
+    Texture(const char *path, bool rgba = false);
+    ~Texture();
+
+    GLuint getId();
+
+    static void Init();
 };

@@ -49,11 +49,12 @@ void rectangle()
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
-    GLuint texture1 = Texture::loadTexture("./assets/textures/container.jpg");
+    Texture texture1{"./assets/textures/container.jpg"};
+    /* GLuint texture1 = Texture::loadTexture("./assets/textures/container.jpg"); */
     /* GLuint texture2 = loadTexture("./assets/textures/awesomeface.png", true); */
 
-    /* glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0); */
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
 
     /* shader.use(); */
     /* shader.setInt("texture1", 0); */
@@ -63,7 +64,7 @@ void rectangle()
     {
         engine.newFrame();
 
-        glBindTexture(GL_TEXTURE_2D, texture1);
+        glBindTexture(GL_TEXTURE_2D, texture1.getId());
 
         shader.use();
         glBindVertexArray(VAO);
