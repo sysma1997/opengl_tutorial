@@ -3,11 +3,14 @@
 using namespace glm;
 
 bool color_pause = false;
+bool color_inverted_mouse = false;
 
 void colorKeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
 {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         color_pause = !color_pause;
+    if (key == GLFW_KEY_Z && action == GLFW_PRESS)
+        color_inverted_mouse = !color_inverted_mouse;
 }
 
 void colors()
@@ -177,7 +180,9 @@ void colors()
 
         mat4 view;
         if (!color_pause)
-            view = camera.getViewMatrix(engine.getWindow(), engine.getWidth(), engine.getHeight());
+            view = camera.getViewMatrix(engine.getWindow(),
+                                        engine.getWidth(), engine.getHeight(),
+                                        color_inverted_mouse);
 
         /* vec3 eye = vec3(camera_pos[0], camera_pos[1], camera_pos[2]);
         vec3 lookat = vec3(0.0f, 0.0f, 0.0f);

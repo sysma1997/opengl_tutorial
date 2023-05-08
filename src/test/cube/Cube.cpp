@@ -3,14 +3,14 @@
 using namespace glm;
 
 bool cube_pause = false;
-bool inverted_mouse = false;
+bool cube_inverted_mouse = false;
 
 void cubeKeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
 {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         cube_pause = !cube_pause;
-    if (key == GLFW_KEY_LEFT_CONTROL && action == GLFW_PRESS)
-        inverted_mouse = !inverted_mouse;
+    if (key == GLFW_KEY_Z && action == GLFW_PRESS)
+        cube_inverted_mouse = !cube_inverted_mouse;
 }
 
 void cube()
@@ -164,7 +164,9 @@ void cube()
 
         if (!cube_pause)
         {
-            mat4 view = camera.getViewMatrix(engine.getWindow(), engine.getWidth(), engine.getHeight(), inverted_mouse);
+            mat4 view = camera.getViewMatrix(engine.getWindow(),
+                                             engine.getWidth(), engine.getHeight(),
+                                             cube_inverted_mouse);
             mat4 projection(1.0f);
             projection = perspective(radians(45.0f), (float)engine.getWidth() / (float)engine.getHeight(),
                                      0.1f, 100.0f);

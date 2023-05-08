@@ -1,5 +1,7 @@
 #include "./Rectangle.h"
 
+#include "../../../libs/stb_image.h"
+
 void rectangle()
 {
     Engine engine = Engine();
@@ -19,18 +21,6 @@ void rectangle()
         0, 1, 2, // first triangle
         2, 1, 3, // seconds triangle
     };
-    /* float vertices[] = {
-        // positions          // colors           // texture coords
-        0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,   // top right
-        0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,  // bottom right
-        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom left
-        -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f   // top left
-    };
-    unsigned int indices[] = {
-        // note that we start from 0!
-        0, 1, 3, // first triangle
-        2, 1, 3  // second triangle
-    }; */
 
     GLuint VAO, VBO, EBO;
     glGenVertexArrays(1, &VAO);
@@ -51,25 +41,27 @@ void rectangle()
     glEnableVertexAttribArray(1);
 
     Texture texture1{"./assets/textures/container.jpg"};
-    /* Texture texture2{"./assets/textures/awesomeface.png", true}; */
+    Texture texture2{"./assets/textures/awesomeface.png", true};
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
     shader.use();
     shader.setInt("texture1", 0);
-    /* shader.setInt("texture2", 1); */
+    shader.setInt("texture2", 1);
 
     while (engine.isClose())
     {
         engine.newFrame();
 
         shader.use();
-        glBindVertexArray(VAO);
+
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture1.getId());
-        /* glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, texture2.getId()); */
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, texture2.getId());
+
+        glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         engine.renderFrame();
