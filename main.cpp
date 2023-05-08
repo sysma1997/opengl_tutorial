@@ -1,8 +1,8 @@
-#include "./src/test/rectangle/Rectangle.h"
+#include "./src/test/lighting/Lighting.h"
 
 int main(void)
 {
-    rectangle();
+    lighting();
 
     return 0;
 }
