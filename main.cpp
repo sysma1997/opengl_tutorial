@@ -1,8 +1,9 @@
-#include "./src/test/lighting/Lighting.h"
+/* #include "./src/test/lighting/Lighting.h" */
+#include "./src/test/maths/Maths.h"
 
 int main(void)
 {
-    lighting();
+    maths();
 
     return 0;
 }
