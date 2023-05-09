@@ -67,3 +67,8 @@ mat4 Camera::getViewMatrix(GLFWwindow *window, int width, int height, bool inver
 
     return viewMatrix;
 }
+
+vec3 Camera::getPosition()
+{
+    return position;
+}

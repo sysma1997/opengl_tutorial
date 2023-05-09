@@ -114,6 +114,7 @@ void lighting()
         cubeShader.use();
         cubeShader.setMat4("projection", projection);
         cubeShader.setMat4("view", view);
+        cubeShader.setVec3("viewPos", camera.getPosition());
         cubeShader.setVec3("lightPos", lightPos);
         cubeShader.setVec3("objectColor", vec3(1.0f, 0.5f, 0.31f));
         cubeShader.setVec3("lightColor", vec3(1.0f, 1.0f, 1.0f));
