@@ -2,4 +2,5 @@
 
 #include "../../engine/Engine.h"
 
-void maths();
+/* Linear algebra */
+void vectors();
