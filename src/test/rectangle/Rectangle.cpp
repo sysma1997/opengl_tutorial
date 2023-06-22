@@ -2,11 +2,25 @@
 
 #include "../../../libs/stb_image.h"
 
+using namespace glm;
+
+bool rectangle_pause = false;
+
+void rectangleKeyCallBack(GLFWwindow *window, int key, int scancode, int action, int mods)
+{
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+        rectangle_pause = !rectangle_pause;
+}
+
 void rectangle()
 {
-    Engine engine = Engine();
+    Engine engine{};
+    Camera camera{};
+
     engine.init("Rectangle");
     Texture::Init();
+
+    engine.setKeyCallback(rectangleKeyCallBack);
 
     Shader shader("./shaders/rectangle/rectangle.vert", "./shaders/rectangle/rectangle.frag");
 
@@ -55,6 +69,20 @@ void rectangle()
         engine.newFrame();
 
         shader.use();
+
+        if (!rectangle_pause)
+        {
+            mat4 view = camera.getViewMatrix(engine.getWindow(), engine.getWidth(), engine.getHeight());
+            mat4 projection = perspective(radians(45.0f), (float)engine.getWidth() / (float)engine.getHeight(),
+                                          0.1f, 100.0f);
+            mat4 model(1.0f);
+
+            view = lookAt(camera.getPosition(), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
+
+            shader.setMat4("view", view);
+            shader.setMat4("projection", projection);
+            shader.setMat4("model", model);
+        }
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture1.getId());

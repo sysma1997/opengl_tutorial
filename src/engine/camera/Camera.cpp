@@ -21,6 +21,10 @@ Camera::Camera()
 }
 Camera::~Camera() {}
 
+vec3 Camera::getPosition()
+{
+    return position;
+}
 mat4 Camera::getViewMatrix(GLFWwindow *window, int width, int height, bool inverted)
 {
     double currentTime = glfwGetTime();
@@ -72,9 +76,4 @@ mat4 Camera::getViewMatrix(GLFWwindow *window, int width, int height, bool inver
     mat4 viewMatrix = lookAt(position, position + front, up);
 
     return viewMatrix;
-}
-
-vec3 Camera::getPosition()
-{
-    return position;
 }
