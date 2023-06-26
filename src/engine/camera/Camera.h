@@ -16,6 +16,9 @@ private:
     float horizontalAngle;
     float verticalAngle;
 
+    bool mouseFirst;
+    float yaw;
+    float pitch;
     float mouseLastX;
     float mouseLastY;
     float mouseSpeed;
@@ -25,10 +28,12 @@ private:
     float speed;
 
 public:
-    Camera();
+    Camera(int width, int height);
     ~Camera();
 
     glm::vec3 getPosition();
 
     glm::mat4 getViewMatrix(GLFWwindow *window, int width, int height, bool inverted = false);
+
+    void setMouseFirst(bool mouseFirst);
 };

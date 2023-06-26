@@ -16,7 +16,7 @@ void cubeKeyCallback(GLFWwindow *window, int key, int scancode, int action, int 
 void cube()
 {
     Engine engine{};
-    Camera camera{};
+    Camera camera{engine.getWidth(), engine.getHeight()};
 
     engine.init("Cube");
 
@@ -162,20 +162,22 @@ void cube()
         shader.use();
         shader.setVec3("color", vec3(0.3, 0.7, 0.5));
 
-        if (!cube_pause)
-        {
-            mat4 view = camera.getViewMatrix(engine.getWindow(),
-                                             engine.getWidth(), engine.getHeight(),
-                                             cube_inverted_mouse);
-            mat4 projection(1.0f);
-            projection = perspective(radians(45.0f), (float)engine.getWidth() / (float)engine.getHeight(),
-                                     0.1f, 100.0f);
-            mat4 model(1.0f);
+        mat4 projection = perspective(radians(45.0f), (float)engine.getWidth() / (float)engine.getHeight(),
+                                      0.1f, 100.0f);
 
-            shader.setMat4("view", view);
-            shader.setMat4("projection", projection);
-            shader.setMat4("model", model);
-        }
+        mat4 view;
+        if (!cube_pause)
+            view = camera.getViewMatrix(engine.getWindow(),
+                                        engine.getWidth(), engine.getHeight(),
+                                        cube_inverted_mouse);
+        else
+            camera.setMouseFirst(true);
+
+        mat4 model(1.0f);
+
+        shader.setMat4("view", view);
+        shader.setMat4("projection", projection);
+        shader.setMat4("model", model);
 
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 36);

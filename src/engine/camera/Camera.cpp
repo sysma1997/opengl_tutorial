@@ -4,7 +4,7 @@
 
 using namespace glm;
 
-Camera::Camera()
+Camera::Camera(int width, int height)
 {
     position = vec3(0.0f, 0.0f, 3.0f);
     front = vec3(0.0f, 0.0f, 0.0f);
@@ -13,8 +13,11 @@ Camera::Camera()
     horizontalAngle = 0.0f;
     verticalAngle = 0.0f;
 
-    mouseLastX = 0.0f;
-    mouseLastY = 0.0f;
+    mouseFirst = true;
+    yaw = -90.0f;
+    pitch = 0.0f;
+    mouseLastX = width / 2.0f;
+    mouseLastY = height / 2.0f;
     mouseSpeed = 0.1f;
 
     speed = 2.0f;
@@ -36,25 +39,38 @@ mat4 Camera::getViewMatrix(GLFWwindow *window, int width, int height, bool inver
 
     float _speed = speed;
     glfwGetCursorPos(window, &xpos, &ypos);
-    glfwSetCursorPos(window, width / 2, height / 2);
+    // glfwSetCursorPos(window, width / 2, height / 2);
 
-    horizontalAngle += mouseSpeed * float(width / 2 - xpos);
-    verticalAngle += mouseSpeed * float(height / 2 - ypos);
+    if (mouseFirst)
+    {
+        mouseLastX = xpos;
+        mouseLastY = ypos;
+        mouseFirst = false;
+    }
 
-    vec3 mouseDirection;
+    horizontalAngle = xpos - mouseLastX;
+    verticalAngle = mouseLastY - ypos;
     if (inverted)
-    {
-        mouseDirection.x = cos(radians(horizontalAngle)) * cos(radians(verticalAngle));
-        mouseDirection.y = sin(radians(verticalAngle));
-        mouseDirection.z = sin(radians(horizontalAngle)) * cos(radians(verticalAngle));
-    }
-    else
-    {
-        mouseDirection.x = sin(radians(horizontalAngle)) * cos(radians(verticalAngle));
-        mouseDirection.y = sin(radians(verticalAngle));
-        mouseDirection.z = cos(radians(horizontalAngle)) * cos(radians(verticalAngle));
-    }
-    front = normalize(mouseDirection);
+        verticalAngle = ypos - mouseLastY;
+    mouseLastX = xpos;
+    mouseLastY = ypos;
+
+    horizontalAngle *= mouseSpeed;
+    verticalAngle *= mouseSpeed;
+
+    yaw += horizontalAngle;
+    pitch += verticalAngle;
+
+    if (pitch > 89.0f)
+        pitch = 89.0f;
+    if (pitch < -89.0f)
+        pitch = -89.0f;
+
+    vec3 _front;
+    _front.x = cos(radians(yaw)) * cos(radians(pitch));
+    _front.y = sin(radians(pitch));
+    _front.z = sin(radians(yaw)) * cos(radians(pitch));
+    front = normalize(_front);
 
     if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
         _speed *= 2;
@@ -76,4 +92,9 @@ mat4 Camera::getViewMatrix(GLFWwindow *window, int width, int height, bool inver
     mat4 viewMatrix = lookAt(position, position + front, up);
 
     return viewMatrix;
+}
+
+void Camera::setMouseFirst(bool mouseFirst)
+{
+    this->mouseFirst = mouseFirst;
 }

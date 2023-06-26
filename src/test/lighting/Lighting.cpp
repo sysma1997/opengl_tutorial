@@ -17,7 +17,7 @@ void lighting()
 {
     Engine engine{};
     UI ui{};
-    Camera camera{};
+    Camera camera{engine.getWidth(), engine.getHeight()};
 
     engine.init("Colors");
 
@@ -108,6 +108,9 @@ void lighting()
             view = camera.getViewMatrix(engine.getWindow(),
                                         engine.getWidth(), engine.getHeight(),
                                         lighting_inverted_mouse);
+        else
+            camera.setMouseFirst(true);
+
         mat4 model;
 
         // Render cube
