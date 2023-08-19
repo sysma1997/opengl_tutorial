@@ -13,7 +13,6 @@ Camera::Camera(int width, int height)
     horizontalAngle = 0.0f;
     verticalAngle = 0.0f;
 
-    mouseFirst = true;
     yaw = -90.0f;
     pitch = 0.0f;
     mouseLastX = width / 2.0f;
@@ -39,21 +38,12 @@ mat4 Camera::getViewMatrix(GLFWwindow *window, int width, int height, bool inver
 
     float _speed = speed;
     glfwGetCursorPos(window, &xpos, &ypos);
-    // glfwSetCursorPos(window, width / 2, height / 2);
+    glfwSetCursorPos(window, width / 2, height / 2);
 
-    if (mouseFirst)
-    {
-        mouseLastX = xpos;
-        mouseLastY = ypos;
-        mouseFirst = false;
-    }
-
-    horizontalAngle = xpos - mouseLastX;
-    verticalAngle = mouseLastY - ypos;
+    horizontalAngle = xpos - (width / 2);
+    verticalAngle = (height / 2) - ypos;
     if (inverted)
-        verticalAngle = ypos - mouseLastY;
-    mouseLastX = xpos;
-    mouseLastY = ypos;
+        verticalAngle = ypos - (height / 2);
 
     horizontalAngle *= mouseSpeed;
     verticalAngle *= mouseSpeed;
@@ -84,17 +74,12 @@ mat4 Camera::getViewMatrix(GLFWwindow *window, int width, int height, bool inver
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
         position -= normalize(cross(front, up)) * deltaTime * _speed;
 
-    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
         position += up * deltaTime * _speed;
-    if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
         position -= up * deltaTime * _speed;
 
     mat4 viewMatrix = lookAt(position, position + front, up);
 
     return viewMatrix;
-}
-
-void Camera::setMouseFirst(bool mouseFirst)
-{
-    this->mouseFirst = mouseFirst;
 }

@@ -108,8 +108,6 @@ void lighting()
             view = camera.getViewMatrix(engine.getWindow(),
                                         engine.getWidth(), engine.getHeight(),
                                         lighting_inverted_mouse);
-        else
-            camera.setMouseFirst(true);
 
         mat4 model;
 

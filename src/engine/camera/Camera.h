@@ -16,7 +16,6 @@ private:
     float horizontalAngle;
     float verticalAngle;
 
-    bool mouseFirst;
     float yaw;
     float pitch;
     float mouseLastX;
@@ -34,6 +33,4 @@ public:
     glm::vec3 getPosition();
 
     glm::mat4 getViewMatrix(GLFWwindow *window, int width, int height, bool inverted = false);
-
-    void setMouseFirst(bool mouseFirst);
 };

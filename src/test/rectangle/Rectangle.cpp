@@ -80,8 +80,6 @@ void rectangle()
         if (!rectangle_pause)
             view = camera.getViewMatrix(engine.getWindow(), engine.getWidth(), engine.getHeight(),
                                         rectangle_inverted_mouse);
-        else
-            camera.setMouseFirst(true);
 
         mat4 model(1.0f);
 

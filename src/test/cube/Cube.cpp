@@ -170,8 +170,6 @@ void cube()
             view = camera.getViewMatrix(engine.getWindow(),
                                         engine.getWidth(), engine.getHeight(),
                                         cube_inverted_mouse);
-        else
-            camera.setMouseFirst(true);
 
         mat4 model(1.0f);
 
