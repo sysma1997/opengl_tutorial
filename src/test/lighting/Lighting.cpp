@@ -120,6 +120,22 @@ void lighting()
         cubeShader.setVec3("objectColor", vec3(1.0f, 0.5f, 0.31f));
         cubeShader.setVec3("lightColor", vec3(1.0f, 1.0f, 1.0f));
 
+        cubeShader.setVec3("material.ambient", vec3(1.0f, 0.5f, 0.31f));
+        cubeShader.setVec3("material.diffuse", vec3(1.0f, 0.5f, 0.31f));
+        cubeShader.setVec3("material.specular", vec3(0.5f, 0.5f, 0.5f));
+        cubeShader.setFloat("material.shininess", 32.0f);
+
+        vec3 lightColor(
+            sin(glfwGetTime() * 2.0f),
+            sin(glfwGetTime() * 0.7f),
+            sin(glfwGetTime() * 1.3f));
+        vec3 diffuseColor = lightColor * vec3(0.5f);
+        vec3 ambientColor = diffuseColor * vec3(0.2f);
+
+        cubeShader.setVec3("light.ambient", ambientColor);
+        cubeShader.setVec3("light.diffuse", diffuseColor);
+        cubeShader.setVec3("light.specular", vec3(1.0f, 1.0f, 1.0f));
+
         model = mat4{1.0f};
         model = translate(model, vec3(cube_modal[0], cube_modal[1], cube_modal[2]));
         cubeShader.setMat4("model", model);
