@@ -135,7 +135,8 @@ void lighting()
         cubeShader.setMat4("projection", projection);
         cubeShader.setMat4("view", view);
 
-        cubeShader.setVec3("light.direction", vec3(-0.2f, -1.0f, -0.3f));
+        cubeShader.setVec3("light.position", lightPos);
+        // cubeShader.setVec3("light.direction", vec3(-0.2f, -1.0f, -0.3f));
         cubeShader.setVec3("viewPos", camera.getPosition());
 
         cubeShader.setFloat("material.shininess", 64.0f);
@@ -143,6 +144,9 @@ void lighting()
         cubeShader.setVec3("light.ambient", vec3(0.2f, 0.2f, 0.2f));
         cubeShader.setVec3("light.diffuse", vec3(0.5f, 0.5f, 0.5f));
         cubeShader.setVec3("light.specular", vec3(1.0f, 1.0f, 1.0f));
+        cubeShader.setFloat("light.constant", 1.0f);
+        cubeShader.setFloat("light.linear", 0.09f);
+        cubeShader.setFloat("light.quadratic", 0.032f);
 
         mat4 model;
         cubeShader.setMat4("model", model);
