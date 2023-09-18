@@ -27,6 +27,10 @@ vec3 Camera::getPosition()
 {
     return position;
 }
+vec3 Camera::getFront()
+{
+    return front;
+}
 mat4 Camera::getViewMatrix(GLFWwindow *window, int width, int height, bool inverted)
 {
     double currentTime = glfwGetTime();

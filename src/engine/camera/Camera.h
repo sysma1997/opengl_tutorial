@@ -31,6 +31,7 @@ public:
     ~Camera();
 
     glm::vec3 getPosition();
+    glm::vec3 getFront();
 
     glm::mat4 getViewMatrix(GLFWwindow *window, int width, int height, bool inverted = false);
 };
