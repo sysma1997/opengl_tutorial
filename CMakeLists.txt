@@ -44,12 +44,18 @@ pkg_check_modules(JSONCPP jsoncpp)
 # SQLITE3
 find_package(SQLite3 REQUIRED)
 
+# ASSIMP
+find_package(Assimp REQUIRED)
+
 # En grandes librerías, podemos pedir solo ciertos componentes
 # con el comando COMPONENTS
 # find_package(wxWidgets COMPONENTS core gl html base net)
 # Si todo va bien, tenemos las variables wxWidgets_FOUND, wxWidgets_LIBRARIES y wxWidgets_INCLUDE_DIR
 
-include_directories(${OPENGL_INCLUDE_DIR} ${GLEW_INCLUDE_DIR} ${SQLite3_INCLUDE_DIRS})
+include_directories(${OPENGL_INCLUDE_DIR} 
+    ${GLEW_INCLUDE_DIR} 
+    ${SQLite3_INCLUDE_DIRS}
+    ${Assimp_INCLUDE_DIRS})
 
 # ----- FIN LIBRERIAS EXTERNAS ----- #
 
@@ -101,4 +107,5 @@ target_link_libraries(opengl_learning
     ${GLEW_LIBRARIES} 
     glfw 
     ${JSONCPP_LIBRARIES} 
-    ${SQLite3_LIBRARIES})
+    ${SQLite3_LIBRARIES}
+    ${Assimp_LIBRARIES})
