@@ -11,6 +11,7 @@
 #include "./ui/ui.h"
 #include "./shader/Shader.h"
 #include "./texture/Texture.h"
+#include "./model/Model.h"
 
 #include "./camera/Camera.h"
 
