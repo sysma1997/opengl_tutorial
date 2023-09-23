@@ -6,6 +6,7 @@
 #include "./src/test/cube/Cube.h"
 #include "./src/test/lighting/Lighting.h"
 #include "./src/test/maths/Maths.h"
+#include "./src/test/loadModel/LoadModel.h"
 
 using namespace std;
 
@@ -25,6 +26,7 @@ int main(void)
         cout << "4 - Cube" << endl;
         cout << "5 - Lighting" << endl;
         cout << "6 - Maths" << endl;
+        cout << "7 - Load models" << endl;
         cout << endl
              << "10 - Exit" << endl;
         cout << "Digit your option: ";
@@ -47,6 +49,8 @@ int main(void)
 
             getch();
         }
+        else if (option == 7)
+            loadModel();
         else if (option == 10)
             break;
 

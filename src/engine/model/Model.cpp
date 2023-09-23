@@ -42,7 +42,7 @@ unsigned int TextureFromFile(const char *path, std::string &directory, bool gamm
     return textureId;
 }
 
-Model::Model(char *path)
+Model::Model(std::string path)
 {
     load(path);
 }
