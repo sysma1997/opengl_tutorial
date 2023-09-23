@@ -2,7 +2,7 @@
 
 using namespace glm;
 
-unsigned int TextureFromFile(const char *path, std::string &directory, bool gamma)
+unsigned int TextureFromFile(const char *path, std::string &directory, bool gamma = false)
 {
     std::string filename = std::string(path);
     filename = directory + '/' + filename;

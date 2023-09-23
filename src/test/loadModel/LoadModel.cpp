@@ -23,7 +23,7 @@ void loadModel()
 
     engine.setKeyCallback(loadModelKeyCallback);
 
-    Shader shader{"./shaders/loadModel/loadModel.vert", "./shader/loadModel/loadModel.frag"};
+    Shader shader{"./shaders/loadModel/loadModel.vert", "./shaders/loadModel/loadModel.frag"};
 
     Model ourModel{"./assets/models/backpack.obj"};
 

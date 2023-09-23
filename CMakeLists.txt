@@ -45,7 +45,7 @@ pkg_check_modules(JSONCPP jsoncpp)
 find_package(SQLite3 REQUIRED)
 
 # ASSIMP
-find_package(Assimp REQUIRED)
+find_package(assimp REQUIRED)
 
 # En grandes librerías, podemos pedir solo ciertos componentes
 # con el comando COMPONENTS
@@ -54,8 +54,7 @@ find_package(Assimp REQUIRED)
 
 include_directories(${OPENGL_INCLUDE_DIR} 
     ${GLEW_INCLUDE_DIR} 
-    ${SQLite3_INCLUDE_DIRS}
-    ${Assimp_INCLUDE_DIRS})
+    ${SQLite3_INCLUDE_DIRS})
 
 # ----- FIN LIBRERIAS EXTERNAS ----- #
 
@@ -108,4 +107,4 @@ target_link_libraries(opengl_learning
     glfw 
     ${JSONCPP_LIBRARIES} 
     ${SQLite3_LIBRARIES}
-    ${Assimp_LIBRARIES})
+    assimp)
