@@ -2,7 +2,7 @@
 
 using namespace glm;
 
-unsigned int TextureFromFile(const char *path, std::string &directory, bool gamma = false)
+unsigned int TextureFromFile(const char *path, const std::string &directory, bool gamma)
 {
     std::string filename = std::string(path);
     filename = directory + '/' + filename;
@@ -47,11 +47,13 @@ Model::Model(std::string path)
     load(path);
 }
 
-void Model::load(std::string path)
+void Model::load(std::string const &path)
 {
     Assimp::Importer import;
-    const aiScene *scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
-
+    const aiScene *scene = import.ReadFile(path, aiProcess_Triangulate |
+                                                     aiProcess_GenSmoothNormals |
+                                                     aiProcess_FlipUVs |
+                                                     aiProcess_CalcTangentSpace);
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
     {
         std::cout << "SYSMA::MODEL::Load::ASSIMP: " << import.GetErrorString() << std::endl;
@@ -89,12 +91,29 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
         vector.z = mesh->mVertices[i].z;
         vertex.position = vector;
 
+        if (mesh->HasNormals())
+        {
+            vector.x = mesh->mNormals[i].x;
+            vector.y = mesh->mNormals[i].y;
+            vector.z = mesh->mNormals[i].z;
+            vertex.normal = vector;
+        }
         if (mesh->mTextureCoords[0])
         {
             vec2 vec;
             vec.x = mesh->mTextureCoords[0][i].x;
             vec.y = mesh->mTextureCoords[0][i].y;
             vertex.texCoords = vec;
+
+            vector.x = mesh->mTangents[i].x;
+            vector.y = mesh->mTangents[i].y;
+            vector.z = mesh->mTangents[i].z;
+            vertex.tangent = vector;
+
+            vector.x = mesh->mBitangents[i].x;
+            vector.y = mesh->mBitangents[i].y;
+            vector.z = mesh->mBitangents[i].z;
+            vertex.bitangent = vector;
         }
         else
             vertex.texCoords = vec2(0.0f);
@@ -111,16 +130,16 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
         }
     }
 
-    if (mesh->mMaterialIndex >= 0)
-    {
-        aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
-        std::vector<TextureMesh> diffuseMaps = loadMaterialTextures(material,
-                                                                    aiTextureType_DIFFUSE, "texture_diffuse");
-        textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-        std::vector<TextureMesh> specularMaps = loadMaterialTextures(material,
-                                                                     aiTextureType_SPECULAR, "texture_specular");
-        textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
-    }
+    aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
+
+    std::vector<TextureMesh> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+    textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+    std::vector<TextureMesh> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+    textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+    std::vector<TextureMesh> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
+    textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
+    std::vector<TextureMesh> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
+    textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
     return Mesh(vertices, indices, textures);
 }

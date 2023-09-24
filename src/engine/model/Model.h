@@ -17,11 +17,7 @@ unsigned int TextureFromFile(const char *path, const std::string &directory, boo
 class Model
 {
 private:
-    std::vector<Mesh> meshes;
-    std::string directory;
-    std::vector<TextureMesh> textures_loaded;
-
-    void load(std::string path);
+    void load(std::string const &path);
     void processNode(aiNode *node, const aiScene *scene);
     Mesh processMesh(aiMesh *mesh, const aiScene *scene);
     std::vector<TextureMesh> loadMaterialTextures(aiMaterial *mat,
@@ -29,6 +25,11 @@ private:
                                                   std::string typeName);
 
 public:
+    std::vector<TextureMesh> textures_loaded;
+    std::vector<Mesh> meshes;
+    std::string directory;
+    bool gammaCorrection;
+
     Model(std::string path);
 
     void draw(Shader &shader);
