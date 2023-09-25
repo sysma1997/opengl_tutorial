@@ -24,7 +24,6 @@ void loadModel()
     engine.setKeyCallback(loadModelKeyCallback);
 
     Shader shader{"./shaders/loadModel/loadModel.vert", "./shaders/loadModel/loadModel.frag"};
-
     Model ourModel{"./assets/models/backpack.obj"};
 
     while (engine.isClose())
@@ -38,14 +37,11 @@ void loadModel()
             view = camera.getViewMatrix(engine.getWindow(),
                                         engine.getWidth(), engine.getHeight(),
                                         loadModel_inverted_mouse);
+        mat4 model{1.0f};
 
         shader.use();
         shader.setMat4("projection", projection);
         shader.setMat4("view", view);
-
-        mat4 model;
-        model = translate(model, vec3{0.0f});
-        model = scale(model, vec3{1.0f});
         shader.setMat4("model", model);
         ourModel.draw(shader);
 

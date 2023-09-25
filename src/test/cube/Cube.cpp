@@ -159,22 +159,19 @@ void cube()
     {
         engine.newFrame();
 
-        shader.use();
-        shader.setVec3("color", vec3(0.3, 0.7, 0.5));
-
         mat4 projection = perspective(radians(45.0f), (float)engine.getWidth() / (float)engine.getHeight(),
                                       0.1f, 100.0f);
-
         mat4 view;
         if (!cube_pause)
             view = camera.getViewMatrix(engine.getWindow(),
                                         engine.getWidth(), engine.getHeight(),
                                         cube_inverted_mouse);
+        mat4 model{1.0f};
 
-        mat4 model(1.0f);
-
-        shader.setMat4("view", view);
+        shader.use();
+        shader.setVec3("color", vec3(0.3, 0.7, 0.5));
         shader.setMat4("projection", projection);
+        shader.setMat4("view", view);
         shader.setMat4("model", model);
 
         glBindVertexArray(VAO);
