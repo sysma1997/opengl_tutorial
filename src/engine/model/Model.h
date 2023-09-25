@@ -10,7 +10,6 @@
 
 #include "./Mesh.h"
 #include "../shader/Shader.h"
-#include "../../../libs/stb_image.h"
 
 unsigned int TextureFromFile(const char *path, const std::string &directory, bool gamma = false);
 

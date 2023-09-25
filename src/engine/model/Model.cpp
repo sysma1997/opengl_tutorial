@@ -21,7 +21,7 @@ unsigned int TextureFromFile(const char *path, const std::string &directory, boo
     unsigned char *data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
     if (!data)
     {
-        std::cout << "SYSMA::MODEL::TextureFromFile: Texture failed to load at path" << path << std::endl;
+        std::cout << "SYSMA::MODEL::TextureFromFile: Texture failed to load at path: " << path << std::endl;
 
         return -1;
     }

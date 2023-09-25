@@ -6,8 +6,12 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 #include "../shader/Shader.h"
+#include "../../../libs/stb_image.h"
 
 struct Vertex
 {
@@ -43,5 +47,6 @@ public:
     Mesh(std::vector<Vertex> vertices,
          std::vector<unsigned int> indices,
          std::vector<TextureMesh> textures);
+
     void draw(Shader &shader);
 };

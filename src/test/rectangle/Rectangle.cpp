@@ -39,6 +39,9 @@ void rectangle()
         2, 1, 3, // seconds triangle
     };
 
+    Texture texture1{"./assets/textures/container.jpg"};
+    Texture texture2{"./assets/textures/awesomeface.png", true};
+
     GLuint VAO, VBO, EBO;
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
@@ -56,9 +59,6 @@ void rectangle()
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
-
-    Texture texture1{"./assets/textures/container.jpg"};
-    Texture texture2{"./assets/textures/awesomeface.png", true};
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
