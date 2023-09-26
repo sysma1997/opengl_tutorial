@@ -6,7 +6,6 @@ unsigned int TextureFromFile(const char *path, const std::string &directory, boo
 {
     std::string filename = std::string(path);
     filename = directory + '/' + filename;
-    std::cout << "MODEL::TextureFromFile: filename: " << filename << std::endl;
 
     unsigned int textureId;
     glGenTextures(1, &textureId);

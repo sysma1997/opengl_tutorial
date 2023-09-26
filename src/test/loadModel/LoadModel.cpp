@@ -24,7 +24,7 @@ void loadModel()
     engine.setKeyCallback(loadModelKeyCallback);
 
     Shader shader{"./shaders/loadModel/loadModel.vert", "./shaders/loadModel/loadModel.frag"};
-    Model ourModel{"./assets/models/katana/katana.obj"};
+    Model ourModel{"./assets/models/backpack/backpack.obj"};
 
     glClearColor(0.3f, 0.6f, 0.8f, 1.0f);
     while (engine.isClose())
@@ -38,7 +38,9 @@ void loadModel()
             view = camera.getViewMatrix(engine.getWindow(),
                                         engine.getWidth(), engine.getHeight(),
                                         loadModel_inverted_mouse);
-        mat4 model{1.0f};
+        mat4 model;
+        model = translate(model, vec3{0.0f});
+        model = scale(model, vec3{1.0f});
 
         shader.setMat4("projection", projection);
         shader.setMat4("view", view);
