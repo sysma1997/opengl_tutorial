@@ -1,6 +1,6 @@
 cd ./build/
 
-cmake ..
+cmake -DCMAKE_BUILD_TYPE=Debug ..
 ninja
 
 cd ../bin/
