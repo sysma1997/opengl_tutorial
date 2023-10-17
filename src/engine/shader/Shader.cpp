@@ -12,7 +12,7 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath)
     std::ifstream vertexShaderStream(vertexPath, std::ios::in);
     if (!vertexShaderStream.is_open())
     {
-        std::cout << "Impossible to open " << vertexPath << ". Are you in the right directory? Don't forget to read the FAQ!" << std::endl;
+        std::cout << "Impossible to open " << vertexPath << ". Are you in the right directory? Don't forget to read the FAQ!" << '\n';
 
         return;
     }
@@ -26,7 +26,7 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath)
     std::ifstream fragmentShaderStream(fragmentPath, std::ios::in);
     if (!fragmentShaderStream.is_open())
     {
-        std::cout << "Impossible to open " << fragmentPath << ". Are you in the right directory? Don't forget to read the FAQ!" << std::endl;
+        std::cout << "Impossible to open " << fragmentPath << ". Are you in the right directory? Don't forget to read the FAQ!" << '\n';
 
         return;
     }
@@ -48,7 +48,7 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath)
     if (!success)
     {
         glGetShaderInfoLog(vertexShaderID, 512, NULL, infoLog);
-        std::cout << "Error to compile shader vertex: " << infoLog << std::endl;
+        std::cout << "Error to compile shader vertex: " << infoLog << '\n';
     }
 
     // COMPILING FRAGMENT SHADER
@@ -61,7 +61,7 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath)
     if (!success)
     {
         glGetShaderInfoLog(fragmentShaderID, 512, NULL, infoLog);
-        std::cout << "Error to compile shader fragment:" << infoLog << std::endl;
+        std::cout << "Error to compile shader fragment:" << infoLog << '\n';
     }
 
     // LINK THE PROGRAM
@@ -75,7 +75,7 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath)
     if (!success)
     {
         glGetProgramInfoLog(id, 512, NULL, infoLog);
-        std::cout << "Error to linking shaders with program: " << infoLog << std::endl;
+        std::cout << "Error to linking shaders with program: " << infoLog << '\n';
     }
 
     glDeleteShader(vertexShaderID);

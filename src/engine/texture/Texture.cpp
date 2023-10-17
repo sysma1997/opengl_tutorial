@@ -17,7 +17,7 @@ Texture::Texture(const char *path, bool rgba)
     unsigned char *data = stbi_load(path, &width, &height, &nrChannels, 0);
     if (!data)
     {
-        std::cout << "Failed to load texture: " << path << std::endl;
+        std::cout << "Failed to load texture: " << path << '\n';
 
         return;
     }

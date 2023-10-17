@@ -12,26 +12,27 @@ using namespace std;
 
 int main(void)
 {
-    cout << "Welcome to examples opengl learning." << endl;
+    cout << "Welcome to examples opengl learning." << '\n';
 
     while (true)
     {
-        int option = 0;
 
-        cout << "Select number to init example:" << endl
-             << endl;
-        cout << "1 - Simple windows" << endl;
-        cout << "2 - Triangle" << endl;
-        cout << "3 - Rectangle" << endl;
-        cout << "4 - Cube" << endl;
-        cout << "5 - Lighting" << endl;
-        cout << "6 - Maths" << endl;
-        cout << "7 - Load models" << endl;
-        cout << endl
-             << "10 - Exit" << endl;
+        cout << "Select number to init example:"
+             << "\n\n";
+        cout << "1 - Simple windows" << '\n';
+        cout << "2 - Triangle" << '\n';
+        cout << "3 - Rectangle" << '\n';
+        cout << "4 - Cube" << '\n';
+        cout << "5 - Lighting" << '\n';
+        cout << "6 - Maths" << '\n';
+        cout << "7 - Load models" << '\n';
+        cout << '\n'
+             << "10 - Exit" << '\n';
         cout << "Digit your option: ";
+
+        int option = 0;
         cin >> option;
-        cout << endl;
+        cout << '\n';
 
         if (option == 1)
             simpleWindow();
@@ -57,7 +58,7 @@ int main(void)
         system("cls");
     }
 
-    cout << "Created by: SYSMA" << endl;
+    cout << "Created by: SYSMA" << '\n';
 
     return 0;
 }

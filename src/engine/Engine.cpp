@@ -29,7 +29,7 @@ void Engine::init(const char *title)
 {
     if (!glfwInit())
     {
-        std::cout << "Failed to init GLFW." << std::endl;
+        std::cout << "Failed to init GLFW." << '\n';
 
         return;
     }
@@ -47,7 +47,7 @@ void Engine::init(const char *title)
     if (window == NULL)
     {
         std::cout << "Error to open window with GLFW, if use old GPU, "
-                  << "it's not compatible with OpenGL 3.3" << std::endl;
+                  << "it's not compatible with OpenGL 3.3" << '\n';
 
         return;
     }
@@ -59,7 +59,7 @@ void Engine::init(const char *title)
 
     if (glewInit() != GLEW_OK)
     {
-        std::cout << "Error to init GLEW." << std::endl;
+        std::cout << "Error to init GLEW." << '\n';
 
         return;
     }
