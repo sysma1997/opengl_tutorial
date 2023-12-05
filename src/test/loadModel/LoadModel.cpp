@@ -38,10 +38,11 @@ void loadModel()
             view = camera.getViewMatrix(engine.getWindow(),
                                         engine.getWidth(), engine.getHeight(),
                                         loadModel_inverted_mouse);
-        mat4 model;
-        model = translate(model, vec3{0.0f});
-        model = scale(model, vec3{1.0f});
+        mat4 model = mat4(1.0f);
+        model = translate(model, vec3{0.0f, 0.0f, 0.0f});
+        model = scale(model, vec3{1.0f, 1.0f, 1.0f});
 
+        shader.use();
         shader.setMat4("projection", projection);
         shader.setMat4("view", view);
         shader.setMat4("model", model);
