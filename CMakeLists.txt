@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.8)
 project(opengl_learning VERSION 1.0)
 
 # Version c++
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Creamos la variable y le asignamos el valor "src/main.cpp" que es la ubicación de nuestro archivo.
@@ -36,16 +36,15 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${BUILD_PATH})
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(glfw3 REQUIRED)
-
 # JSON LIBRARY
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(JSONCPP jsoncpp)
-
 # SQLITE3
 find_package(SQLite3 REQUIRED)
-
 # ASSIMP
 find_package(assimp REQUIRED)
+# FREETYPE
+find_package(Freetype REQUIRED)
 
 # En grandes librerías, podemos pedir solo ciertos componentes
 # con el comando COMPONENTS
@@ -54,7 +53,8 @@ find_package(assimp REQUIRED)
 
 include_directories(${OPENGL_INCLUDE_DIR} 
     ${GLEW_INCLUDE_DIR} 
-    ${SQLite3_INCLUDE_DIRS})
+    ${SQLite3_INCLUDE_DIRS}
+    ${FREETYPE_INCLUDE_DIRS})
 
 # ----- FIN LIBRERIAS EXTERNAS ----- #
 
@@ -107,4 +107,5 @@ target_link_libraries(opengl_learning
     glfw 
     ${JSONCPP_LIBRARIES} 
     ${SQLite3_LIBRARIES}
-    assimp)
+    assimp
+    ${FREETYPE_LIBRARIES})

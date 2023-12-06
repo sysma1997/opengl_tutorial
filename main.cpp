@@ -7,6 +7,7 @@
 #include "./src/test/lighting/Lighting.h"
 #include "./src/test/maths/Maths.h"
 #include "./src/test/loadModel/LoadModel.h"
+#include "./src/test/textRendering/TextRendering.h"
 
 using namespace std;
 
@@ -16,18 +17,16 @@ int main(void)
 
     while (true)
     {
-
-        cout << "Select number to init example:"
-             << "\n\n";
-        cout << "1 - Simple windows" << '\n';
-        cout << "2 - Triangle" << '\n';
-        cout << "3 - Rectangle" << '\n';
-        cout << "4 - Cube" << '\n';
-        cout << "5 - Lighting" << '\n';
-        cout << "6 - Maths" << '\n';
-        cout << "7 - Load models" << '\n';
-        cout << '\n'
-             << "10 - Exit" << '\n';
+        cout << "Select number to init example:\n\n";
+        cout << "1 - Simple windows\n";
+        cout << "2 - Triangle\n";
+        cout << "3 - Rectangle\n";
+        cout << "4 - Cube\n";
+        cout << "5 - Lighting\n";
+        cout << "6 - Maths\n";
+        cout << "7 - Load models\n";
+        cout << "8 - Text rendering\n\n";
+        cout << "10 - Exit\n";
         cout << "Digit your option: ";
 
         int option = 0;
@@ -52,13 +51,15 @@ int main(void)
         }
         else if (option == 7)
             loadModel();
+        else if (option == 8)
+            textRendering();
         else if (option == 10)
             break;
 
         system("cls");
     }
 
-    cout << "Created by: SYSMA" << '\n';
+    cout << "Created by: SYSMA\n";
 
     return 0;
 }
