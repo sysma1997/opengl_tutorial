@@ -12,7 +12,8 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath)
     std::ifstream vertexShaderStream(vertexPath, std::ios::in);
     if (!vertexShaderStream.is_open())
     {
-        std::cout << "Impossible to open " << vertexPath << ". Are you in the right directory? Don't forget to read the FAQ!" << '\n';
+        std::cout << "Impossible to open " << vertexPath << ". Are you in the right directory? Don't "
+                  << "forget to read the FAQ!" << '\n';
 
         return;
     }
@@ -26,7 +27,8 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath)
     std::ifstream fragmentShaderStream(fragmentPath, std::ios::in);
     if (!fragmentShaderStream.is_open())
     {
-        std::cout << "Impossible to open " << fragmentPath << ". Are you in the right directory? Don't forget to read the FAQ!" << '\n';
+        std::cout << "Impossible to open " << fragmentPath << ". Are you in the right directory? Don't "
+                  << "forget to read the FAQ!" << '\n';
 
         return;
     }

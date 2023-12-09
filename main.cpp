@@ -8,6 +8,7 @@
 #include "./src/test/maths/Maths.h"
 #include "./src/test/loadModel/LoadModel.h"
 #include "./src/test/textRendering/TextRendering.h"
+#include "./src/test/breakout/breakout.h"
 
 using namespace std;
 
@@ -25,7 +26,8 @@ int main(void)
         cout << "5 - Lighting\n";
         cout << "6 - Maths\n";
         cout << "7 - Load models\n";
-        cout << "8 - Text rendering\n\n";
+        cout << "8 - Text rendering\n";
+        cout << "9 - Breakout\n\n";
         cout << "10 - Exit\n";
         cout << "Digit your option: ";
 
@@ -53,6 +55,8 @@ int main(void)
             loadModel();
         else if (option == 8)
             textRendering();
+        else if (option == 9)
+            breakout();
         else if (option == 10)
             break;
 
