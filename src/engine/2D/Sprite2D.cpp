@@ -1,16 +1,16 @@
-#include "./spriteRendered.h"
+#include "./Sprite2D.h"
 
-SpriteRenderer::SpriteRenderer(GameShader &shader)
+Sprite2D::Sprite2D(Shader &shader)
 {
     this->shader = shader;
-    this->initRederData();
+    initData();
 }
-SpriteRenderer::~SpriteRenderer()
+Sprite2D::~Sprite2D()
 {
-    glDeleteVertexArrays(1, &this->quadVAO);
+    glDeleteVertexArrays(1, &quadVAO);
 }
 
-void SpriteRenderer::initRederData()
+void Sprite2D::initData()
 {
     unsigned int VBO;
     float vertices[] = {
@@ -36,12 +36,13 @@ void SpriteRenderer::initRederData()
     glBindVertexArray(0);
 }
 
-void SpriteRenderer::drawSprite(GameTexture2D &texture,
-                                glm::vec2 position, glm::vec2 size,
-                                float rotate,
-                                glm::vec3 color)
+void Sprite2D::draw(Texture texture,
+                    glm::vec2 position,
+                    glm::vec2 size,
+                    float rotate,
+                    glm::vec3 color)
 {
-    this->shader.use();
+    shader.use();
     glm::mat4 model{1.0f};
     model = glm::translate(model, glm::vec3(position, 0.0f));
 
@@ -50,13 +51,13 @@ void SpriteRenderer::drawSprite(GameTexture2D &texture,
     model = glm::translate(model, glm::vec3(size.x * -0.5f, size.y * -0.5f, 0.0f));
     model = glm::scale(model, glm::vec3(size, 1.0f));
 
-    this->shader.setMatrix4("model", model);
-    this->shader.setVector3f("spriteColor", color);
+    shader.setMat4("model", model);
+    shader.setVec3("spriteColor", color);
 
     glActiveTexture(GL_TEXTURE0);
-    texture.bind();
+    glBindTexture(GL_TEXTURE_2D, texture.getId());
 
-    glBindVertexArray(this->quadVAO);
+    glBindVertexArray(quadVAO);
     glDrawArrays(GL_TRIANGLES, 0, 6);
-    glBindVertexArray(0);
+    // glBindVertexArray(0);
 }

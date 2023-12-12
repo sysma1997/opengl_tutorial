@@ -14,6 +14,7 @@ class Shader
 public:
     GLuint id;
 
+    Shader();
     Shader(const char *vertexPath, const char *fragmentPath);
 
     void use();

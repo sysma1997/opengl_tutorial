@@ -2,6 +2,7 @@
 
 using namespace glm;
 
+Shader::Shader() {}
 Shader::Shader(const char *vertexPath, const char *fragmentPath)
 {
     GLuint vertexShaderID = glCreateShader(GL_VERTEX_SHADER);

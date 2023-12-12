@@ -3,6 +3,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "../../../libs/stb_image.h"
 
+Texture::Texture() {}
 Texture::Texture(const char *path, bool rgba)
 {
     glGenTextures(1, &id);

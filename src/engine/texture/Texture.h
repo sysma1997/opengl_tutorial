@@ -10,6 +10,7 @@ private:
     GLuint id;
 
 public:
+    Texture();
     Texture(const char *path, bool rgba = false);
     ~Texture();
 
