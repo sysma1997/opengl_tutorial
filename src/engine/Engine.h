@@ -12,6 +12,8 @@
 #include "./shader/Shader.h"
 #include "./texture/Texture.h"
 #include "./model/Model.h"
+#include "./2D/Sprite2D.h"
+#include "./resourceManager/ResourceManager.h"
 
 #include "./camera/Camera.h"
 

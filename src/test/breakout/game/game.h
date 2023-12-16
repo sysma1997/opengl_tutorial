@@ -4,8 +4,6 @@
 
 #include "../../../engine/resourceManager/ResourceManager.h"
 #include "../../../engine/2D/Sprite2D.h"
-/* #include "./utils/resourceManager.h"
-#include "./utils/spriteRendered.h" */
 
 enum GameState
 {
