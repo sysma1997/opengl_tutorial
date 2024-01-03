@@ -10,6 +10,7 @@
 
 #include "gameObject.h"
 #include "gameLevel.h"
+#include "ballObject.h"
 
 enum GameState
 {

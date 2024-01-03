@@ -10,6 +10,9 @@ private:
     GLuint id;
 
 public:
+    unsigned int width;
+    unsigned int height;
+
     Texture();
     Texture(const char *path, bool rgba = false);
     ~Texture();

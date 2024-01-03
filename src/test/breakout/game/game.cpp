@@ -4,8 +4,11 @@ Sprite2D *renderer;
 
 const glm::vec2 PLAYER_SIZE{100.0f, 20.0f};
 const float PLAYER_VELOCITY{500.0f};
+const glm::vec2 INITIAL_BALL_VELOCITY{100.0f, -350.0f};
+const float BALL_RADIUS = 12.5f;
 
 GameObject *player;
+BallObject *ball;
 
 Game::Game(unsigned int width, unsigned int height) : state(ACTIVE), keys(),
                                                       width(width), height(height) {}
@@ -34,7 +37,7 @@ void Game::init()
     for (int i = 0; i < 4; i++)
     {
         GameLevel gameLevel;
-        std::string path = "./assets/game/level/" + std::to_string(i + 1) + ".lvl";
+        std::string path{"./assets/game/level/" + std::to_string(i + 1) + ".lvl"};
         gameLevel.load(path.c_str(), width, height / 2);
         levels.push_back(gameLevel);
     }
@@ -44,6 +47,11 @@ void Game::init()
     glm::vec2 pos{(static_cast<float>(width) / 2.0f) - PLAYER_SIZE.x / 2.0f,
                   static_cast<float>(height) - PLAYER_SIZE.y};
     player = new GameObject{pos, PLAYER_SIZE, ResourceManager::GetTexture("paddle")};
+
+    pos = pos + glm::vec2{PLAYER_SIZE.x / 2.0f - BALL_RADIUS,
+                          -BALL_RADIUS * 2.0f};
+    ball = new BallObject{pos, BALL_RADIUS, INITIAL_BALL_VELOCITY,
+                          ResourceManager::GetTexture("face")};
 }
 void Game::processInput(float dt)
 {
@@ -52,16 +60,31 @@ void Game::processInput(float dt)
         float velocity{PLAYER_VELOCITY * dt};
 
         if (keys[GLFW_KEY_LEFT] && player->position.x >= 0.0f)
+        {
             player->position.x -= velocity;
+            if (ball->stuck)
+                ball->position.x -= velocity;
+        }
         if (keys[GLFW_KEY_RIGHT] && player->position.x <= width - PLAYER_SIZE.x)
+        {
             player->position.x += velocity;
+            if (ball->stuck)
+                ball->position.x += velocity;
+        }
+
+        if (keys[GLFW_KEY_SPACE])
+            ball->stuck = false;
     }
 }
-void Game::update(float dt) {}
+void Game::update(float dt)
+{
+    ball->move(dt, width);
+}
 void Game::render()
 {
     if (state == GameState::ACTIVE)
     {
+        ball->draw(*renderer);
         player->draw(*renderer);
         levels[level].draw(*renderer);
 
