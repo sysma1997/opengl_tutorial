@@ -1,9 +1,15 @@
 #pragma once
 
+#include <string>
+#include <vector>
 #include <glm/glm.hpp>
 
+#include "../../../engine/Engine.h"
 #include "../../../engine/resourceManager/ResourceManager.h"
 #include "../../../engine/2D/Sprite2D.h"
+
+#include "gameObject.h"
+#include "gameLevel.h"
 
 enum GameState
 {
@@ -18,6 +24,9 @@ public:
     GameState state;
     bool keys[1024];
     unsigned int width, height;
+
+    std::vector<GameLevel> levels;
+    unsigned int level;
 
     Game(unsigned int width, unsigned int height);
     ~Game();
