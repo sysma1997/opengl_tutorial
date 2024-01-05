@@ -33,7 +33,7 @@ public:
     int getHeight();
     GLFWwindow *getWindow();
 
-    void init(const char *title);
+    void init(const char *title, bool is2D = false);
     bool isClose();
     void newFrame();
     void renderFrame();

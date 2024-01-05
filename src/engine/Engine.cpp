@@ -25,7 +25,7 @@ GLFWwindow *Engine::getWindow()
     return window;
 }
 
-void Engine::init(const char *title)
+void Engine::init(const char *title, bool is2D)
 {
     if (!glfwInit())
     {
@@ -64,7 +64,13 @@ void Engine::init(const char *title)
         return;
     }
 
-    glEnable(GL_DEPTH_TEST);
+    if (!is2D)
+        glEnable(GL_DEPTH_TEST);
+    else
+    {
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    }
 }
 bool Engine::isClose()
 {

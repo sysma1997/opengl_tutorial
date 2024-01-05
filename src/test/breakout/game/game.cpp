@@ -84,11 +84,11 @@ void Game::render()
 {
     if (state == GameState::ACTIVE)
     {
-        ball->draw(*renderer);
-        player->draw(*renderer);
-        levels[level].draw(*renderer);
-
         renderer->draw(ResourceManager::GetTexture("background"),
                        glm::vec2{0.0f}, glm::vec2{width, height}, 0.0f);
+
+        levels[level].draw(*renderer);
+        player->draw(*renderer);
+        ball->draw(*renderer);
     }
 }

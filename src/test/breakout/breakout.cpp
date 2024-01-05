@@ -21,7 +21,7 @@ void breakout()
 {
     Engine engine{};
 
-    engine.init("breakout");
+    engine.init("breakout", true);
 
     engine.setKeyCallback(breakoutKeyCallback);
 
