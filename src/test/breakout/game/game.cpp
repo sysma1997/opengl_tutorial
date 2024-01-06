@@ -1,5 +1,9 @@
 #include "./game.h"
 
+typedef std::tuple<bool, Direction, glm::vec2> Collision;
+Collision checkCollision(BallObject &one, GameObject &two);
+Direction vectorDirection(glm::vec2 target);
+
 Sprite2D *renderer;
 
 const glm::vec2 PLAYER_SIZE{100.0f, 20.0f};
@@ -79,6 +83,14 @@ void Game::processInput(float dt)
 void Game::update(float dt)
 {
     ball->move(dt, width);
+
+    doCollisions();
+
+    if (ball->position.y >= height)
+    {
+        resetLevel();
+        resetPlayer();
+    }
 }
 void Game::render()
 {
@@ -91,4 +103,114 @@ void Game::render()
         player->draw(*renderer);
         ball->draw(*renderer);
     }
+}
+
+void Game::doCollisions()
+{
+    for (GameObject &box : levels[level].bricks)
+    {
+        if (box.destroyed)
+            continue;
+
+        Collision ballCollisionBox{checkCollision(*ball, box)};
+        if (std::get<0>(ballCollisionBox))
+        {
+            if (!box.isSolid)
+                box.destroyed = true;
+
+            Direction direction{std::get<1>(ballCollisionBox)};
+            glm::vec2 diffVec{std::get<2>(ballCollisionBox)};
+
+            if (direction == Direction::LEFT || direction == Direction::RIGHT)
+            {
+                ball->velocity.x = -ball->velocity.x;
+                float penetration{ball->radius - std::abs(diffVec.x)};
+                if (direction == Direction::LEFT)
+                    ball->position.x += penetration;
+                else
+                    ball->position.x -= penetration;
+            }
+            else
+            {
+                ball->velocity.y = -ball->velocity.y;
+                float penetration{ball->radius - std::abs(diffVec.y)};
+                if (direction == Direction::UP)
+                    ball->position.y -= penetration;
+                else
+                    ball->position.y += penetration;
+            }
+        }
+
+        Collision ballCollisionPlayer = checkCollision(*ball, *player);
+        if (!ball->stuck && std::get<0>(ballCollisionPlayer))
+        {
+            float centerBoard{player->position.x + player->size.x / 2.0f};
+            float distance{(ball->position.x + ball->radius) - centerBoard};
+            float percentaje{distance / (player->size.x / 2.0f)};
+
+            float strength{2.0f};
+            glm::vec2 oldVelocity{ball->velocity};
+            ball->velocity.x = INITIAL_BALL_VELOCITY.x * percentaje * strength;
+            ball->velocity.y = std::abs(ball->velocity.y) * -1.0f;
+            ball->velocity = glm::normalize(ball->velocity) * glm::length(oldVelocity);
+        }
+    }
+}
+void Game::resetLevel()
+{
+    for (GameObject &box : levels[level].bricks)
+    {
+        if (!box.isSolid && box.destroyed)
+            box.destroyed = false;
+    }
+}
+void Game::resetPlayer()
+{
+    player->size = PLAYER_SIZE;
+    player->position = glm::vec2(static_cast<float>(width) / 2.0f - (PLAYER_SIZE.x / 2.0f),
+                                 static_cast<float>(height) - PLAYER_SIZE.y);
+    ball->reset(player->position + glm::vec2(PLAYER_SIZE.x / 2.0f - BALL_RADIUS, -(BALL_RADIUS * 2.0f)),
+                INITIAL_BALL_VELOCITY);
+}
+
+Collision checkCollision(BallObject &one, GameObject &two)
+{
+    glm::vec2 center{one.position + one.radius};
+
+    glm::vec2 aabbHalfExtends{two.size.x / 2.0f, two.size.y / 2.0f};
+    glm::vec2 aabbCenter{two.position.x + aabbHalfExtends.x,
+                         two.position.y + aabbHalfExtends.y};
+
+    glm::vec2 difference{center - aabbCenter};
+    glm::vec2 clamped{glm::clamp(difference, -aabbHalfExtends, aabbHalfExtends)};
+
+    glm::vec2 closet{aabbCenter + clamped};
+
+    difference = closet - center;
+    if (glm::length(difference) <= one.radius)
+        return std::make_tuple(true, vectorDirection(difference), difference);
+    else
+        return std::make_tuple(false, Direction::UP, glm::vec2{0.0f});
+}
+Direction vectorDirection(glm::vec2 target)
+{
+    glm::vec2 compass[]{
+        glm::vec2{0.0f, 1.0f},
+        glm::vec2{1.0f, 0.0f},
+        glm::vec2{0.0f, -1.0f},
+        glm::vec2{-1.0f, 0.0f}};
+    float max = 0.0f;
+    unsigned int bestMatch = -1;
+
+    for (unsigned int i = 0; i < 4; i++)
+    {
+        float dotProduct = glm::dot(glm::normalize(target), compass[i]);
+        if (dotProduct > max)
+        {
+            max = dotProduct;
+            bestMatch = i;
+        }
+    }
+
+    return static_cast<Direction>(bestMatch);
 }

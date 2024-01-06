@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <tuple>
 #include <glm/glm.hpp>
 
 #include "../../../engine/Engine.h"
@@ -12,6 +13,13 @@
 #include "gameLevel.h"
 #include "ballObject.h"
 
+enum Direction
+{
+    UP,
+    RIGHT,
+    DOWN,
+    LEFT
+};
 enum GameState
 {
     ACTIVE,
@@ -38,4 +46,9 @@ public:
     void processInput(float dt);
     void update(float dt);
     void render();
+
+    void doCollisions();
+
+    void resetLevel();
+    void resetPlayer();
 };
