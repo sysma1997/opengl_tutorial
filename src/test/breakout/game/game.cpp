@@ -5,38 +5,50 @@ Collision checkCollision(BallObject &one, GameObject &two);
 Direction vectorDirection(glm::vec2 target);
 
 Sprite2D *renderer;
-
+GameObject *player;
 const glm::vec2 PLAYER_SIZE{100.0f, 20.0f};
 const float PLAYER_VELOCITY{500.0f};
+BallObject *ball;
 const glm::vec2 INITIAL_BALL_VELOCITY{100.0f, -350.0f};
 const float BALL_RADIUS = 12.5f;
-
-GameObject *player;
-BallObject *ball;
+Particle2DGenerator *particles;
 
 Game::Game(unsigned int width, unsigned int height) : state(ACTIVE), keys(),
                                                       width(width), height(height) {}
 Game::~Game()
 {
     delete renderer;
+    delete player;
+    delete ball;
+    delete particles;
 }
 
 void Game::init()
 {
+    srand(time(NULL));
+
     ResourceManager::LoadShader("./shaders/game/game.vert", "./shaders/game/game.frag", "sprite");
+    ResourceManager::LoadShader("./shaders/game/particles.vert", "./shaders/game/particles.frag", "particle");
     glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(this->width),
                                       static_cast<float>(this->height), 0.0f, -1.0f, 1.0f);
     ResourceManager::GetShader("sprite").use();
     ResourceManager::GetShader("sprite").setInt("image", 0);
     ResourceManager::GetShader("sprite").setMat4("projection", projection);
-
-    Shader shader = ResourceManager::GetShader("sprite");
-    renderer = new Sprite2D(shader);
+    ResourceManager::GetShader("particle").use();
+    ResourceManager::GetShader("particle").setInt("sprite", 0);
+    ResourceManager::GetShader("particle").setMat4("projection", projection);
 
     ResourceManager::LoadTexture("./assets/textures/awesomeface.png", true, "face");
     ResourceManager::LoadTexture("./assets/textures/background.jpg", false, "background");
     ResourceManager::LoadTexture("./assets/textures/block.png", false, "block");
     ResourceManager::LoadTexture("./assets/textures/block_solid.png", false, "block_solid");
+    ResourceManager::LoadTexture("./assets/textures/particle.png", true, "particle");
+
+    Shader shader{ResourceManager::GetShader("sprite")};
+    renderer = new Sprite2D{shader};
+    shader = ResourceManager::GetShader("particle");
+    Texture texture{ResourceManager::GetTexture("particle")};
+    particles = new Particle2DGenerator{shader, texture, 500};
 
     for (int i = 0; i < 4; i++)
     {
@@ -56,6 +68,8 @@ void Game::init()
                           -BALL_RADIUS * 2.0f};
     ball = new BallObject{pos, BALL_RADIUS, INITIAL_BALL_VELOCITY,
                           ResourceManager::GetTexture("face")};
+
+    resetLevel();
 }
 void Game::processInput(float dt)
 {
@@ -83,8 +97,9 @@ void Game::processInput(float dt)
 void Game::update(float dt)
 {
     ball->move(dt, width);
-
     doCollisions();
+
+    particles->update(dt, *ball, 2, glm::vec2{ball->radius / 2.0f});
 
     if (ball->position.y >= height)
     {
@@ -101,6 +116,7 @@ void Game::render()
 
         levels[level].draw(*renderer);
         player->draw(*renderer);
+        particles->draw();
         ball->draw(*renderer);
     }
 }

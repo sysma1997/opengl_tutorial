@@ -3,11 +3,11 @@
 #include <string>
 #include <vector>
 #include <tuple>
+#include <stdlib.h>
+#include <time.h>
 #include <glm/glm.hpp>
 
 #include "../../../engine/Engine.h"
-#include "../../../engine/resourceManager/ResourceManager.h"
-#include "../../../engine/2D/Sprite2D.h"
 
 #include "gameObject.h"
 #include "gameLevel.h"
