@@ -12,6 +12,7 @@
 #include "gameObject.h"
 #include "gameLevel.h"
 #include "ballObject.h"
+#include "gamePostProcessing.h"
 
 enum Direction
 {

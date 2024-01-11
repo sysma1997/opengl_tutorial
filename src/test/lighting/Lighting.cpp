@@ -211,9 +211,9 @@ void lighting()
         cubeShader.setMat4("model", model); */
 
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, diffuseMap.getId());
+        diffuseMap.bind();
         glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, specularMap.getId());
+        specularMap.bind();
         /* glBindVertexArray(cubeVAO); */
         // glDrawArrays(GL_TRIANGLES, 0, 36);
 

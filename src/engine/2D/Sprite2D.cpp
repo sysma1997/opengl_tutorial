@@ -53,11 +53,8 @@ void Sprite2D::draw(Texture texture,
 
     shader.setMat4("model", model);
     shader.setVec3("spriteColor", color);
-
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texture.getId());
+    texture.bind();
 
     glBindVertexArray(quadVAO);
     glDrawArrays(GL_TRIANGLES, 0, 6);
-    // glBindVertexArray(0);
 }

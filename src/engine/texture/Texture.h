@@ -18,6 +18,8 @@ public:
     ~Texture();
 
     GLuint getId();
+    void generate(unsigned int width, unsigned int height, unsigned char *data);
+    void bind() const;
 
     static void Init();
 };

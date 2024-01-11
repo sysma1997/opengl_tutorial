@@ -3,7 +3,10 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "../../../libs/stb_image.h"
 
-Texture::Texture() {}
+Texture::Texture()
+{
+    glGenTextures(1, &id);
+}
 Texture::Texture(const char *path, bool rgba)
 {
     glGenTextures(1, &id);
@@ -41,4 +44,24 @@ void Texture::Init()
 GLuint Texture::getId()
 {
     return id;
+}
+void Texture::generate(unsigned int width, unsigned int height, unsigned char *data)
+{
+    glBindTexture(GL_TEXTURE_2D, id);
+
+    this->width = width;
+    this->height = height;
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
+void Texture::bind() const
+{
+    glBindTexture(GL_TEXTURE_2D, id);
 }

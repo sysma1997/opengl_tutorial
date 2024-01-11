@@ -12,6 +12,8 @@ BallObject *ball;
 const glm::vec2 INITIAL_BALL_VELOCITY{100.0f, -350.0f};
 const float BALL_RADIUS = 12.5f;
 Particle2DGenerator *particles;
+GamePostProcessing *effects;
+float shakeTime = 0.0f;
 
 Game::Game(unsigned int width, unsigned int height) : state(ACTIVE), keys(),
                                                       width(width), height(height) {}
@@ -21,6 +23,7 @@ Game::~Game()
     delete player;
     delete ball;
     delete particles;
+    delete effects;
 }
 
 void Game::init()
@@ -29,6 +32,9 @@ void Game::init()
 
     ResourceManager::LoadShader("./shaders/game/game.vert", "./shaders/game/game.frag", "sprite");
     ResourceManager::LoadShader("./shaders/game/particles.vert", "./shaders/game/particles.frag", "particle");
+    ResourceManager::LoadShader("./shaders/game/postprocessing.vert",
+                                "./shaders/game/postprocessing.frag", "postProcessing");
+
     glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(this->width),
                                       static_cast<float>(this->height), 0.0f, -1.0f, 1.0f);
     ResourceManager::GetShader("sprite").use();
@@ -49,6 +55,8 @@ void Game::init()
     shader = ResourceManager::GetShader("particle");
     Texture texture{ResourceManager::GetTexture("particle")};
     particles = new Particle2DGenerator{shader, texture, 500};
+    shader = ResourceManager::GetShader("postProcessing");
+    effects = new GamePostProcessing(shader, width, height);
 
     for (int i = 0; i < 4; i++)
     {
@@ -106,11 +114,20 @@ void Game::update(float dt)
         resetLevel();
         resetPlayer();
     }
+
+    if (shakeTime > 0.0f)
+    {
+        shakeTime -= dt;
+        if (shakeTime <= 0.0f)
+            effects->shake = false;
+    }
 }
 void Game::render()
 {
     if (state == GameState::ACTIVE)
     {
+        effects->beginReder();
+
         renderer->draw(ResourceManager::GetTexture("background"),
                        glm::vec2{0.0f}, glm::vec2{width, height}, 0.0f);
 
@@ -118,6 +135,9 @@ void Game::render()
         player->draw(*renderer);
         particles->draw();
         ball->draw(*renderer);
+
+        effects->endRender();
+        effects->render(static_cast<float>(glfwGetTime()));
     }
 }
 
@@ -133,6 +153,11 @@ void Game::doCollisions()
         {
             if (!box.isSolid)
                 box.destroyed = true;
+            else
+            {
+                shakeTime = 0.05f;
+                effects->shake = true;
+            }
 
             Direction direction{std::get<1>(ballCollisionBox)};
             glm::vec2 diffVec{std::get<2>(ballCollisionBox)};

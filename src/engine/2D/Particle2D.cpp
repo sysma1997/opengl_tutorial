@@ -93,9 +93,7 @@ void Particle2DGenerator::draw()
         {
             shader.setVec2("offset", particle.position);
             shader.setVec4("color", particle.color);
-
-            glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D, texture.getId());
+            texture.bind();
 
             glBindVertexArray(VAO);
             glDrawArrays(GL_TRIANGLES, 0, 6);
