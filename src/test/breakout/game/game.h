@@ -5,6 +5,7 @@
 #include <tuple>
 #include <stdlib.h>
 #include <time.h>
+#include <algorithm>
 #include <glm/glm.hpp>
 
 #include "../../../engine/Engine.h"
@@ -13,6 +14,7 @@
 #include "gameLevel.h"
 #include "ballObject.h"
 #include "gamePostProcessing.h"
+#include "powerUp.h"
 
 enum Direction
 {
@@ -38,6 +40,8 @@ public:
     std::vector<GameLevel> levels;
     unsigned int level;
 
+    std::vector<PowerUp> powerUps;
+
     Game(unsigned int width, unsigned int height);
     ~Game();
 
@@ -52,4 +56,7 @@ public:
 
     void resetLevel();
     void resetPlayer();
+
+    void spawnPowerUp(GameObject &block);
+    void updatePowerUp(float dt);
 };
