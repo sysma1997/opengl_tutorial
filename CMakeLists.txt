@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.25)
 
 project(opengl_learning VERSION 1.0)
 
@@ -51,7 +51,11 @@ find_package(Freetype REQUIRED)
 # find_package(wxWidgets COMPONENTS core gl html base net)
 # Si todo va bien, tenemos las variables wxWidgets_FOUND, wxWidgets_LIBRARIES y wxWidgets_INCLUDE_DIR
 
-include_directories(${OPENGL_INCLUDE_DIR} 
+file(GLOB_RECURSE dlls "libs/*.dll")
+file(COPY ${dlls} DESTINATION ${BUILD_PATH}/)
+
+include_directories(libs/soloud
+    ${OPENGL_INCLUDE_DIR} 
     ${GLEW_INCLUDE_DIR} 
     ${SQLite3_INCLUDE_DIRS}
     ${FREETYPE_INCLUDE_DIRS})
@@ -83,7 +87,7 @@ ENDIF()
 # FILE GLOB selecciona todos los archivos que cumplan la característica y los almacena en libs_src
 # GLOB no es recursivo. Si lo necesitas, usa GLOB_RECURSE
 file(GLOB_RECURSE libs_src 
-    "libs/*.h" "libs/*.hpp" "libs/*.cpp"
+    "libs/*.h" "libs/*.hpp" "libs/*.cpp" "libs/*.c"
     "src/*.h" "src/*.cpp"
 )
 
@@ -102,6 +106,7 @@ file(COPY ${assets} DESTINATION ${BUILD_PATH}/assets)
 # Se hace referencia a las variables con ${NOMBRE_VARIABLE}
 add_executable(opengl_learning ${opengl_learning_src} ${libs_src})
 target_link_libraries(opengl_learning 
+    SoLoud
     ${OPENGL_gl_LIBRARY} 
     ${GLEW_LIBRARIES} 
     glfw 
