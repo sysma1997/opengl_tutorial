@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Archivos de origen">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Archivos de encabezado">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Archivos de recursos">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleWindow\SimpleWindow.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangle\Triangle.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Rectangle\Rectangle.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SimpleWindow\SimpleWindow.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle\Triangle.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Rectangle\Rectangle.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\triangle\triangle.frag" />
+    <None Include="Shaders\triangle\triangle.vert" />
+    <None Include="Assets\game\level\1.lvl" />
+    <None Include="Assets\game\level\2.lvl" />
+    <None Include="Assets\game\level\3.lvl" />
+    <None Include="Assets\game\level\4.lvl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Assets\audios\breakout.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Assets\fonts\arial.ttf" />
+    <Font Include="Assets\fonts\Arialn.ttf" />
+    <Font Include="Assets\fonts\ArialTh.ttf" />
+    <Font Include="Assets\fonts\ARIBL0.ttf" />
+    <Font Include="Assets\fonts\G_ari_bd.TTF" />
+    <Font Include="Assets\fonts\G_ari_i.TTF" />
+    <Font Include="Assets\fonts\GEO_AI__.TTF" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\textures\awesomeface.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="Assets\textures\background.jpg">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="Assets\textures\block.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="Assets\textures\block_solid.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="Assets\textures\container.jpg">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="Assets\textures\container2.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="Assets\textures\container2_specular.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="Assets\textures\paddle.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="Assets\textures\particle.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="Assets\textures\powerup_chaos.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="Assets\textures\powerup_confuse.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="Assets\textures\powerup_increase.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="Assets\textures\powerup_passthrough.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="Assets\textures\powerup_speed.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="Assets\textures\powerup_sticky.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="Assets\textures\uvmap.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="Assets\textures\uvmap.DDS" />
+    <Image Include="Assets\textures\uvmap_2.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="Assets\textures\uvmap_2.DDS" />
+    <Image Include="Assets\textures\uvtemplate.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="Assets\textures\uvtemplate.DDS" />
+    <Image Include="Assets\textures\wall.jpg">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
