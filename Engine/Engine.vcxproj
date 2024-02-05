@@ -27,26 +27,26 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Utility</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Utility</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Utility</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Utility</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -71,20 +71,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>D:\Programming\cpp\Builds\includes;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Programming\cpp\Builds\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)..\Libraries\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)..\Libraries\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>D:\Programming\cpp\Builds\includes;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Programming\cpp\Builds\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)..\Libraries\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)..\Libraries\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\Programming\cpp\Builds\includes;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Programming\cpp\Builds\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)..\Libraries\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)..\Libraries\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>D:\Programming\cpp\Builds\includes;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Programming\cpp\Builds\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)..\Libraries\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)..\Libraries\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -147,10 +147,44 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="camera\Camera.h" />
     <ClInclude Include="Engine.h" />
+    <ClInclude Include="2D\Particle2D.h" />
+    <ClInclude Include="libs\imgui\imconfig.h" />
+    <ClInclude Include="libs\imgui\imgui.h" />
+    <ClInclude Include="libs\imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="libs\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="libs\imgui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="libs\imgui\imgui_internal.h" />
+    <ClInclude Include="libs\imgui\imstb_rectpack.h" />
+    <ClInclude Include="libs\imgui\imstb_textedit.h" />
+    <ClInclude Include="libs\imgui\imstb_truetype.h" />
+    <ClInclude Include="model\Mesh.h" />
+    <ClInclude Include="model\Model.h" />
+    <ClInclude Include="resourceManager\ResourceManager.h" />
+    <ClInclude Include="shader\Shader.h" />
+    <ClInclude Include="2D\Sprite2D.h" />
+    <ClInclude Include="texture\Texture.h" />
+    <ClInclude Include="ui\UI.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="camera\Camera.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="2D\Particle2D.cpp" />
+    <ClCompile Include="libs\imgui\imgui.cpp" />
+    <ClCompile Include="libs\imgui\imgui_demo.cpp" />
+    <ClCompile Include="libs\imgui\imgui_draw.cpp" />
+    <ClCompile Include="libs\imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="libs\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="libs\imgui\imgui_tables.cpp" />
+    <ClCompile Include="libs\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="model\Mesh.cpp" />
+    <ClCompile Include="model\Model.cpp" />
+    <ClCompile Include="resourceManager\ResourceManager.cpp" />
+    <ClCompile Include="shader\Shader.cpp" />
+    <ClCompile Include="2D\Sprite2D.cpp" />
+    <ClCompile Include="texture\Texture.cpp" />
+    <ClCompile Include="ui\UI.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

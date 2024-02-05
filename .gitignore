@@ -2,3 +2,5 @@
 .vs/
 build/
 bin/
+Engine/x64/
+Test/x64/

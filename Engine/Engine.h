@@ -9,6 +9,15 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/string_cast.hpp>
 
+#include "shader/Shader.h"
+#include "texture/Texture.h"
+#include "model/Model.h"
+#include "2D/Sprite2D.h"
+#include "2D/Particle2D.h"
+#include "resourceManager/ResourceManager.h"
+#include "camera/Camera.h"
+#include "ui/UI.h"
+
 class Engine
 {
 public:
