@@ -1,7 +1,5 @@
 .vscode/
 .vs/
-build/
-bin/
+x64/
 LearningOpenGL/x64/
-LearningOpenGL/LearningOpenGL/x64/
-LearningOpenGL/Tests/x64/
+Tests/x64/
