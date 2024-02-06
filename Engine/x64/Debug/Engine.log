@@ -1,0 +1,24 @@
+﻿  Camera.cpp
+D:\Programming\cpp\Projects\OpenGLLearn\Engine\camera\Camera.cpp(37,29): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\Programming\cpp\Projects\OpenGLLearn\Engine\camera\Camera.cpp(38,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\Programming\cpp\Projects\OpenGLLearn\Engine\camera\Camera.cpp(47,28): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\Programming\cpp\Projects\OpenGLLearn\Engine\camera\Camera.cpp(48,34): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\Programming\cpp\Projects\OpenGLLearn\Engine\camera\Camera.cpp(50,30): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Engine.cpp
+  Particle2D.cpp
+  imgui.cpp
+  imgui_demo.cpp
+  imgui_draw.cpp
+  imgui_impl_glfw.cpp
+  imgui_impl_opengl3.cpp
+  imgui_tables.cpp
+  imgui_widgets.cpp
+  Mesh.cpp
+  Model.cpp
+  ResourceManager.cpp
+  Shader.cpp
+  Sprite2D.cpp
+  Texture.cpp
+  UI.cpp
+  Generating Code...
+  Engine.vcxproj -> D:\Programming\cpp\Projects\OpenGLLearn\Engine\x64\Debug\Engine.lib

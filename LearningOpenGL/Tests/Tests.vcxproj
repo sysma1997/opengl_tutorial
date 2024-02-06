@@ -183,12 +183,16 @@ xcopy "$(ProjectDir)Shaders" "$(OutDir)Shaders" /y /d /e /h /c /i</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Cube\Cube.cpp" />
+    <ClCompile Include="Lighting\Lighting.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Rectangle\Rectangle.cpp" />
     <ClCompile Include="SimpleWindow\SimpleWindow.cpp" />
     <ClCompile Include="Triangle\Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Cube\Cube.h" />
+    <ClInclude Include="Lighting\Lighting.h" />
     <ClInclude Include="Rectangle\Rectangle.h" />
     <ClInclude Include="SimpleWindow\SimpleWindow.h" />
     <ClInclude Include="Triangle\Triangle.h" />

@@ -63,6 +63,8 @@ void rectangle() {
     shader->setInt("texture1", 0);
     shader->setInt("texture2", 1);
 
+    mat4 view{};
+
     while (engine->isClose())
     {
         engine->newFrame();
@@ -71,7 +73,6 @@ void rectangle() {
 
         mat4 projection = perspective(radians(45.0f), engine->fWidth() / engine->fHeight(), 0.1f, 100.0f);
 
-        mat4 view{};
         if (!rectangle_pause)
             view = camera->getViewMatrix(engine->window, engine->width, engine->height, rectangle_inverted_mouse);
 
