@@ -156,7 +156,11 @@
     <ClCompile Include="libs\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="libs\imgui\imgui_tables.cpp" />
     <ClCompile Include="libs\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="Model\Mesh.cpp" />
+    <ClCompile Include="Model\Model.cpp" />
+    <ClCompile Include="ResourceManager\ResourceManager.cpp" />
     <ClCompile Include="Shader\Shader.cpp" />
+    <ClCompile Include="2D\Sprite2D.cpp" />
     <ClCompile Include="Texture\Texture.cpp" />
     <ClCompile Include="UI\UI.cpp" />
   </ItemGroup>
@@ -173,7 +177,11 @@
     <ClInclude Include="libs\imgui\imstb_textedit.h" />
     <ClInclude Include="libs\imgui\imstb_truetype.h" />
     <ClInclude Include="libs\stb_image.h" />
+    <ClInclude Include="Model\Mesh.h" />
+    <ClInclude Include="Model\Model.h" />
+    <ClInclude Include="ResourceManager\ResourceManager.h" />
     <ClInclude Include="Shader\Shader.h" />
+    <ClInclude Include="2D\Sprite2D.h" />
     <ClInclude Include="Texture\Texture.h" />
     <ClInclude Include="UI\UI.h" />
   </ItemGroup>

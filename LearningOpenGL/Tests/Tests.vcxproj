@@ -98,7 +98,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;glm.lib;LearningOpenGL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;glm.lib;assimp-vc143-mt.lib;assimp-vc143-mtd.lib;freetype.lib;LearningOpenGL.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>xcopy "$(ProjectDir)Assets" "$(OutDir)Assets" /y /d /e /h /c /i
@@ -124,7 +124,7 @@ xcopy "$(ProjectDir)Shaders" "$(OutDir)Shaders" /y /d /e /h /c /i</Command>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;glm.lib;LearningOpenGL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;glm.lib;assimp-vc143-mt.lib;assimp-vc143-mtd.lib;freetype.lib;LearningOpenGL.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>xcopy "$(ProjectDir)Assets" "$(OutDir)Assets" /y /d /e /h /c /i
@@ -146,7 +146,7 @@ xcopy "$(ProjectDir)Shaders" "$(OutDir)Shaders" /y /d /e /h /c /i</Command>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;glm.lib;LearningOpenGL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;glm.lib;assimp-vc143-mt.lib;assimp-vc143-mtd.lib;freetype.lib;LearningOpenGL.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>xcopy "$(ProjectDir)Assets" "$(OutDir)Assets" /y /d /e /h /c /i
@@ -172,7 +172,7 @@ xcopy "$(ProjectDir)Shaders" "$(OutDir)Shaders" /y /d /e /h /c /i</Command>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;glm.lib;LearningOpenGL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;glm.lib;assimp-vc143-mt.lib;assimp-vc143-mtd.lib;freetype.lib;LearningOpenGL.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>xcopy "$(ProjectDir)Assets" "$(OutDir)Assets" /y /d /e /h /c /i
@@ -183,18 +183,37 @@ xcopy "$(ProjectDir)Shaders" "$(OutDir)Shaders" /y /d /e /h /c /i</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Breakout\Breakout.cpp" />
     <ClCompile Include="Cube\Cube.cpp" />
+    <ClCompile Include="Breakout\Game\Game.cpp" />
+    <ClCompile Include="Breakout\Game\GameBallObject.cpp" />
+    <ClCompile Include="Breakout\Game\GameLevel.cpp" />
+    <ClCompile Include="Breakout\Game\GameObject.cpp" />
+    <ClCompile Include="Breakout\Game\GamePostProcessing.cpp" />
+    <ClCompile Include="Breakout\Game\GameParticle2D.cpp" />
     <ClCompile Include="Lighting\Lighting.cpp" />
+    <ClCompile Include="LoadModels\LoadModels.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Rectangle\Rectangle.cpp" />
     <ClCompile Include="SimpleWindow\SimpleWindow.cpp" />
+    <ClCompile Include="TextRendering\TextRendering.cpp" />
     <ClCompile Include="Triangle\Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Breakout\Breakout.h" />
+    <ClInclude Include="Breakout\Game\PowerUp.h" />
     <ClInclude Include="Cube\Cube.h" />
+    <ClInclude Include="Breakout\Game\Game.h" />
+    <ClInclude Include="Breakout\Game\GameBallObject.h" />
+    <ClInclude Include="Breakout\Game\GameLevel.h" />
+    <ClInclude Include="Breakout\Game\GameObject.h" />
+    <ClInclude Include="Breakout\Game\GamePostProcessing.h" />
+    <ClInclude Include="Breakout\Game\GameParticle2D.h" />
     <ClInclude Include="Lighting\Lighting.h" />
+    <ClInclude Include="LoadModels\LoadModels.h" />
     <ClInclude Include="Rectangle\Rectangle.h" />
     <ClInclude Include="SimpleWindow\SimpleWindow.h" />
+    <ClInclude Include="TextRendering\TextRendering.h" />
     <ClInclude Include="Triangle\Triangle.h" />
   </ItemGroup>
   <ItemGroup>

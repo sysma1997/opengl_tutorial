@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\INVENTSOFT\Downloads\assimp-master\build\CMakeFiles\e20b341cfa6f9310d84c8724a6074ccd\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{71096955-21C5-3A1E-8189-D8BEFC46CC96}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

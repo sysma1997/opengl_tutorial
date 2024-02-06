@@ -6,6 +6,9 @@
 #include "Rectangle/Rectangle.h"
 #include "Cube/Cube.h"
 #include "Lighting/Lighting.h"
+#include "LoadModels/LoadModels.h"
+#include "TextRendering/TextRendering.h"
+#include "Breakout/Breakout.h"
 
 using namespace std;
 
@@ -19,6 +22,9 @@ int main() {
 		cout << "3 - Rectangle\n";
 		cout << "4 - Cube\n";
 		cout << "5 - Lighting\n";
+		cout << "6 - Load models\n";
+		cout << "7 - Text rendering\n";
+		cout << "8 - Breakout\n";
 		cout << "10 - Exit\n";
 		cout << "Digit your option: ";
 		
@@ -36,6 +42,12 @@ int main() {
 			cube();
 		else if (option == 5)
 			lighting();
+		else if (option == 6)
+			loadModels();
+		else if (option == 7)
+			textRendering();
+		else if (option == 8)
+			breakout();
 		else if (option == 10)
 			break;
 

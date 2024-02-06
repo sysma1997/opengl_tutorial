@@ -1,0 +1,10 @@
+# CMake generation dependency list for this directory.
+C:/Users/INVENTSOFT/Downloads/assimp-master/contrib/zlib/CMakeLists.txt
+C:/Users/INVENTSOFT/Downloads/assimp-master/contrib/zlib/zconf.h.cmakein
+C:/Users/INVENTSOFT/Downloads/assimp-master/contrib/zlib/zlib.pc.cmakein
+D:/Programming/cpp/CMake/share/cmake-3.28/Modules/CheckCSourceCompiles.cmake
+D:/Programming/cpp/CMake/share/cmake-3.28/Modules/CheckFunctionExists.cmake
+D:/Programming/cpp/CMake/share/cmake-3.28/Modules/CheckIncludeFile.cmake
+D:/Programming/cpp/CMake/share/cmake-3.28/Modules/CheckIncludeFileCXX.cmake
+D:/Programming/cpp/CMake/share/cmake-3.28/Modules/CheckTypeSize.cmake
+D:/Programming/cpp/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake

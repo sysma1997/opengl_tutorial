@@ -9,8 +9,10 @@
 
 #include "Shader/Shader.h"
 #include "Texture/Texture.h"
+#include "Model/Model.h"
 #include "Camera/Camera.h"
 #include "UI/UI.h"
+#include "ResourceManager/ResourceManager.h"
 
 class Engine {
 public:
