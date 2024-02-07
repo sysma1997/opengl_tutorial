@@ -7,6 +7,7 @@
 #include <time.h>
 #include <algorithm>
 #include <glm/glm.hpp>
+#include <irrKlang/irrKlang.h>
 
 #include <Engine.h>
 
@@ -60,4 +61,6 @@ public:
 
     void spawnPowerUp(GameObject& block);
     void updatePowerUp(float dt);
+
+    void terminate();
 };

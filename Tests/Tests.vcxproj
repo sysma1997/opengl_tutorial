@@ -98,7 +98,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;glm.lib;assimp-vc143-mt.lib;assimp-vc143-mtd.lib;freetype.lib;LearningOpenGL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;glm.lib;assimp-vc143-mt.lib;assimp-vc143-mtd.lib;freetype.lib;irrKlang.lib;LearningOpenGL.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>xcopy "$(ProjectDir)Assets" "$(OutDir)Assets" /y /d /e /h /c /i
@@ -124,7 +124,7 @@ xcopy "$(ProjectDir)Shaders" "$(OutDir)Shaders" /y /d /e /h /c /i</Command>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;glm.lib;assimp-vc143-mt.lib;assimp-vc143-mtd.lib;freetype.lib;LearningOpenGL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;glm.lib;assimp-vc143-mt.lib;assimp-vc143-mtd.lib;freetype.lib;irrKlang.lib;LearningOpenGL.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>xcopy "$(ProjectDir)Assets" "$(OutDir)Assets" /y /d /e /h /c /i
@@ -146,7 +146,7 @@ xcopy "$(ProjectDir)Shaders" "$(OutDir)Shaders" /y /d /e /h /c /i</Command>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;glm.lib;assimp-vc143-mt.lib;assimp-vc143-mtd.lib;freetype.lib;LearningOpenGL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;glm.lib;assimp-vc143-mt.lib;assimp-vc143-mtd.lib;freetype.lib;irrKlang.lib;LearningOpenGL.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>xcopy "$(ProjectDir)Assets" "$(OutDir)Assets" /y /d /e /h /c /i
@@ -172,7 +172,7 @@ xcopy "$(ProjectDir)Shaders" "$(OutDir)Shaders" /y /d /e /h /c /i</Command>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;glm.lib;assimp-vc143-mt.lib;assimp-vc143-mtd.lib;freetype.lib;LearningOpenGL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;glm.lib;assimp-vc143-mt.lib;assimp-vc143-mtd.lib;freetype.lib;irrKlang.lib;LearningOpenGL.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>xcopy "$(ProjectDir)Assets" "$(OutDir)Assets" /y /d /e /h /c /i
@@ -225,9 +225,6 @@ xcopy "$(ProjectDir)Shaders" "$(OutDir)Shaders" /y /d /e /h /c /i</Command>
     <None Include="Shaders\triangle\triangle.vert" />
   </ItemGroup>
   <ItemGroup>
-    <Media Include="Assets\audios\breakout.mp3" />
-  </ItemGroup>
-  <ItemGroup>
     <Font Include="Assets\fonts\arial.ttf" />
     <Font Include="Assets\fonts\Arialn.ttf" />
     <Font Include="Assets\fonts\ArialTh.ttf" />
@@ -235,30 +232,6 @@ xcopy "$(ProjectDir)Shaders" "$(OutDir)Shaders" /y /d /e /h /c /i</Command>
     <Font Include="Assets\fonts\GEO_AI__.TTF" />
     <Font Include="Assets\fonts\G_ari_bd.TTF" />
     <Font Include="Assets\fonts\G_ari_i.TTF" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\textures\awesomeface.png" />
-    <Image Include="Assets\textures\background.jpg" />
-    <Image Include="Assets\textures\block.png" />
-    <Image Include="Assets\textures\block_solid.png" />
-    <Image Include="Assets\textures\container.jpg" />
-    <Image Include="Assets\textures\container2.png" />
-    <Image Include="Assets\textures\container2_specular.png" />
-    <Image Include="Assets\textures\paddle.png" />
-    <Image Include="Assets\textures\particle.png" />
-    <Image Include="Assets\textures\powerup_chaos.png" />
-    <Image Include="Assets\textures\powerup_confuse.png" />
-    <Image Include="Assets\textures\powerup_increase.png" />
-    <Image Include="Assets\textures\powerup_passthrough.png" />
-    <Image Include="Assets\textures\powerup_speed.png" />
-    <Image Include="Assets\textures\powerup_sticky.png" />
-    <Image Include="Assets\textures\uvmap.bmp" />
-    <Image Include="Assets\textures\uvmap.DDS" />
-    <Image Include="Assets\textures\uvmap_2.bmp" />
-    <Image Include="Assets\textures\uvmap_2.DDS" />
-    <Image Include="Assets\textures\uvtemplate.bmp" />
-    <Image Include="Assets\textures\uvtemplate.DDS" />
-    <Image Include="Assets\textures\wall.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

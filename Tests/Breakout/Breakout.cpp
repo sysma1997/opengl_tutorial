@@ -45,5 +45,6 @@ void breakout()
     }
 
     ResourceManager::Clear();
+    game->terminate();
     engine->terminate();
 }

@@ -1,5 +1,7 @@
 #include "Game.h"
 
+using namespace irrklang;
+
 typedef std::tuple<bool, Direction, glm::vec2> Collision;
 bool checkCollision(GameObject& one, GameObject& two);
 Collision checkCollision(BallObject& one, GameObject& two);
@@ -19,6 +21,8 @@ Particle2DGenerator* particles;
 GamePostProcessing* effects;
 float shakeTime = 0.0f;
 
+ISoundEngine* soundEngine{ createIrrKlangDevice() };
+
 Game::Game(unsigned int width, unsigned int height) : state(ACTIVE), keys(),
 width(width), height(height) {}
 Game::~Game()
@@ -28,6 +32,7 @@ Game::~Game()
     delete ball;
     delete particles;
     delete effects;
+    soundEngine->drop();
 }
 
 void Game::init()
@@ -88,6 +93,7 @@ void Game::init()
                           ResourceManager::GetTexture("face") };
 
     resetLevel();
+    soundEngine->play2D("Assets/audios/breakout.mp3", true);
 }
 void Game::processInput(float dt)
 {
@@ -171,11 +177,13 @@ void Game::doCollisions()
             {
                 box.destroyed = true;
                 spawnPowerUp(box);
+                soundEngine->play2D("Assets/audios/bleep.mp3", false);
             }
             else
             {
                 shakeTime = 0.05f;
                 effects->shake = true;
+                soundEngine->play2D("Assets/audios/solid.wav", false);
             }
 
             Direction direction{ std::get<1>(ballCollisionBox) };
@@ -217,6 +225,7 @@ void Game::doCollisions()
                 activatePowerUp(powerUp);
                 powerUp.destroyed = true;
                 powerUp.activated = true;
+                soundEngine->play2D("Assets/audios/powerup.wav", false);
             }
         }
 
@@ -233,6 +242,7 @@ void Game::doCollisions()
             ball->velocity.y = std::abs(ball->velocity.y) * -1.0f;
             ball->velocity = glm::normalize(ball->velocity) * glm::length(oldVelocity);
             ball->stuck = ball->sticky;
+            soundEngine->play2D("Assets/audios/bleep.wav", false);
         }
     }
 }
@@ -331,6 +341,10 @@ void Game::updatePowerUp(float dt)
         [](const PowerUp& powerUp)
         { return powerUp.destroyed && !powerUp.activated; }),
         powerUps.end());
+}
+
+void Game::terminate() {
+    soundEngine->stopAllSounds();
 }
 
 bool checkCollision(GameObject& one, GameObject& two)
