@@ -22,6 +22,7 @@ GamePostProcessing* effects;
 float shakeTime = 0.0f;
 
 ISoundEngine* soundEngine{ createIrrKlangDevice() };
+TextRenderer* textRender;
 
 Game::Game(unsigned int width, unsigned int height) : state(ACTIVE), keys(),
 width(width), height(height) {}
@@ -94,9 +95,28 @@ void Game::init()
 
     resetLevel();
     soundEngine->play2D("Assets/audios/breakout.mp3", true);
+
+    textRender = new TextRenderer(width, height);
+    textRender->load("Assets/fonts/OCRAEXT.TTF", 24);
 }
 void Game::processInput(float dt)
 {
+    if (state == GameState::MENU) {
+        if (keys[GLFW_KEY_ENTER] && !keyProcessed[GLFW_KEY_ENTER]) {
+            state = GameState::ACTIVE;
+            keyProcessed[GLFW_KEY_ENTER] = true;
+        }
+        if (keys[GLFW_KEY_W] && !keyProcessed[GLFW_KEY_W]) {
+            level = (level + 1) % 4;
+            keyProcessed[GLFW_KEY_W] = true;
+        }
+        if (keys[GLFW_KEY_S] && !keyProcessed[GLFW_KEY_S]) {
+            if (level > 0)
+                --level;
+            else level = 3;
+            keyProcessed[GLFW_KEY_S] = true;
+        }
+    }
     if (state == GameState::ACTIVE)
     {
         float velocity{ PLAYER_VELOCITY * dt };
@@ -117,6 +137,13 @@ void Game::processInput(float dt)
         if (keys[GLFW_KEY_SPACE])
             ball->stuck = false;
     }
+    if (state == GameState::WIN) {
+        if (keys[GLFW_KEY_ENTER] && !keyProcessed[GLFW_KEY_ENTER]) {
+            keyProcessed[GLFW_KEY_ENTER] = true;
+            effects->chaos = false;
+            state = GameState::MENU;
+        }
+    }
 }
 void Game::update(float dt)
 {
@@ -135,13 +162,29 @@ void Game::update(float dt)
     }
     if (ball->position.y >= height)
     {
+        --lives;
+
+        if (lives == 0) {
+            resetLevel();
+            state = GameState::MENU;
+        }
+        resetPlayer();
+    }
+
+    if (state == GameState::ACTIVE && levels[level].isCompleted()) {
         resetLevel();
         resetPlayer();
+        effects->chaos = true;
+        state = GameState::WIN;
     }
 }
 void Game::render()
 {
-    if (state == GameState::ACTIVE)
+    if (state == GameState::MENU) {
+        textRender->render("Press ENTER to start", 250.0f, height / 2.0f, 1.0f);
+        textRender->render("Press W or S to select level", 245.0f, (height / 2.0f) + 20.0f, 0.75f);
+    }
+    if (state == GameState::ACTIVE || state == GameState::MENU)
     {
         effects->beginReder();
 
@@ -160,6 +203,15 @@ void Game::render()
 
         effects->endRender();
         effects->render(static_cast<float>(glfwGetTime()));
+
+        std::stringstream ss;
+        ss << lives;
+        textRender->render("Lives: " + ss.str(), 5.0f, 5.0f, 1.0);
+    }
+    if (state == GameState::WIN) {
+        textRender->render("You WON!!", 320.0f, (height / 2.0f) - 20.0f, 1.0f, glm::vec3{ 0.0f, 1.0f, 0.0f });
+        textRender->render("Press ENTER to retry or ESC to quit", 130.0f, height / 2.0f, 1.0f,
+            glm::vec3{ 1.0f, 1.0f, 0.0f });
     }
 }
 
@@ -253,6 +305,8 @@ void Game::resetLevel()
         if (!box.isSolid && box.destroyed)
             box.destroyed = false;
     }
+
+    lives = 3;
 }
 void Game::resetPlayer()
 {

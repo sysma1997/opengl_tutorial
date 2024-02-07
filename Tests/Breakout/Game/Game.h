@@ -17,6 +17,7 @@
 #include "GameParticle2D.h"
 #include "GamePostProcessing.h"
 #include "PowerUp.h"
+#include "GameTextRenderer.h"
 
 enum Direction
 {
@@ -43,6 +44,9 @@ public:
     unsigned int level;
 
     std::vector<PowerUp> powerUps;
+
+    unsigned int lives;
+    bool keyProcessed[1024];
 
     Game(unsigned int width, unsigned int height);
     ~Game();

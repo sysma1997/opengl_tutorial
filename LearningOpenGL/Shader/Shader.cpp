@@ -3,8 +3,7 @@
 using namespace glm;
 
 Shader::Shader() {}
-Shader::Shader(const char* vertexPath, const char* fragmentPath)
-{
+Shader::Shader(const char* vertexPath, const char* fragmentPath) {
     GLuint vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
     GLuint fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
     std::stringstream sstr;
@@ -85,37 +84,36 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
     glDeleteShader(fragmentShaderID);
 }
 
-void Shader::use()
-{
+void Shader::use() {
     glUseProgram(id);
 }
 
-void Shader::setBool(const std::string& name, GLboolean value) const
-{
+void Shader::setBool(const std::string& name, GLboolean value, bool useShader) {
+    if (useShader) use();
     glUniform1i(glGetUniformLocation(id, name.c_str()), (int)value);
 }
-void Shader::setInt(const std::string& name, GLint value) const
-{
+void Shader::setInt(const std::string& name, GLint value, bool useShader) {
+    if (useShader) use();
     glUniform1i(glGetUniformLocation(id, name.c_str()), value);
 }
-void Shader::setFloat(const std::string& name, GLfloat value) const
-{
+void Shader::setFloat(const std::string& name, GLfloat value, bool useShader) {
+    if (useShader) use();
     glUniform1f(glGetUniformLocation(id, name.c_str()), value);
 }
 
-void Shader::setVec2(const std::string& name, vec2 value) const
-{
+void Shader::setVec2(const std::string& name, vec2 value, bool useShader) {
+    if (useShader) use();
     glUniform2fv(glGetUniformLocation(id, name.c_str()), 1, value_ptr(value));
 }
-void Shader::setVec3(const std::string& name, vec3 value) const
-{
+void Shader::setVec3(const std::string& name, vec3 value, bool useShader) {
+    if (useShader) use();
     glUniform3fv(glGetUniformLocation(id, name.c_str()), 1, value_ptr(value));
 }
-void Shader::setVec4(const std::string& name, vec4 value) const
-{
+void Shader::setVec4(const std::string& name, vec4 value, bool useShader) {
+    if (useShader) use();
     glUniform4fv(glGetUniformLocation(id, name.c_str()), 1, value_ptr(value));
 }
-void Shader::setMat4(const std::string& name, mat4 value) const
-{
+void Shader::setMat4(const std::string& name, mat4 value, bool useShader) {
+    if (useShader) use();
     glUniformMatrix4fv(glGetUniformLocation(id, name.c_str()), 1, GL_FALSE, value_ptr(value));
 }

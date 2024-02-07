@@ -191,6 +191,7 @@ xcopy "$(ProjectDir)Shaders" "$(OutDir)Shaders" /y /d /e /h /c /i</Command>
     <ClCompile Include="Breakout\Game\GameObject.cpp" />
     <ClCompile Include="Breakout\Game\GamePostProcessing.cpp" />
     <ClCompile Include="Breakout\Game\GameParticle2D.cpp" />
+    <ClCompile Include="Breakout\Game\GameTextRenderer.cpp" />
     <ClCompile Include="Lighting\Lighting.cpp" />
     <ClCompile Include="LoadModels\LoadModels.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -209,6 +210,7 @@ xcopy "$(ProjectDir)Shaders" "$(OutDir)Shaders" /y /d /e /h /c /i</Command>
     <ClInclude Include="Breakout\Game\GameObject.h" />
     <ClInclude Include="Breakout\Game\GamePostProcessing.h" />
     <ClInclude Include="Breakout\Game\GameParticle2D.h" />
+    <ClInclude Include="Breakout\Game\GameTextRenderer.h" />
     <ClInclude Include="Lighting\Lighting.h" />
     <ClInclude Include="LoadModels\LoadModels.h" />
     <ClInclude Include="Rectangle\Rectangle.h" />
@@ -217,21 +219,8 @@ xcopy "$(ProjectDir)Shaders" "$(OutDir)Shaders" /y /d /e /h /c /i</Command>
     <ClInclude Include="Triangle\Triangle.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\game\level\1.lvl" />
-    <None Include="Assets\game\level\2.lvl" />
-    <None Include="Assets\game\level\3.lvl" />
-    <None Include="Assets\game\level\4.lvl" />
     <None Include="Shaders\triangle\triangle.frag" />
     <None Include="Shaders\triangle\triangle.vert" />
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="Assets\fonts\arial.ttf" />
-    <Font Include="Assets\fonts\Arialn.ttf" />
-    <Font Include="Assets\fonts\ArialTh.ttf" />
-    <Font Include="Assets\fonts\ARIBL0.ttf" />
-    <Font Include="Assets\fonts\GEO_AI__.TTF" />
-    <Font Include="Assets\fonts\G_ari_bd.TTF" />
-    <Font Include="Assets\fonts\G_ari_i.TTF" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -10,8 +10,10 @@ void breakoutKeyCallback(GLFWwindow* window, int key, int scancode, int action, 
     {
         if (action == GLFW_PRESS)
             game->keys[key] = true;
-        else if (action == GLFW_RELEASE)
+        else if (action == GLFW_RELEASE) {
             game->keys[key] = false;
+            game->keyProcessed[key] = false;
+        }
     }
 }
 
